@@ -1,0 +1,43 @@
+{% extends "baseflask.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">TRANSACTION LOG</h5>
+    </div>
+    <div class="col-md-11">
+        <form id="regForm">
+            <p>
+                <input placeholder="transaction id" oninput="this.className = ''" name="fname">
+                <input placeholder="mm/dd/yyyy" oninput="this.className = ''" name="date" type="date">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)"><i class="fa fa-angle-double-left"></i></button> 
+            </p>      
+        </form>
+    </div>
+</div>
+<!-- Log Result Card -->
+<div class="col-xxl-4 col-xl-12">
+
+    <div class="card info-card customers-card">
+
+      <div class="card-body">
+        <h5 class="card-title">log server <span>| test</span></h5>
+
+        <div class="d-flex align-items-center">
+          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+            <i class="bi bi-card-list"></i>
+          </div>
+          <div class="ps-3">
+            {% if flag %}
+            <br><span class="text-muted small pt-2 ps-1"> {{ txtmsg }} </span>
+            <br><span class="text-muted small pt-2 ps-1"> {{ wkt }} </span>
+            {% else %}
+            <h5 class="card-title">no result</h5>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- Log Result Card -->
+{% endblock %}
