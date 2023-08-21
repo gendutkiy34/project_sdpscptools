@@ -1,0 +1,57 @@
+{% extends "baseflask.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">PUSH MT HTTP TEST</h5>
+
+      <!-- No Labels Form -->
+      <form class="row g-3" method="POST">
+        {{ formmt.hidden_tag() }}
+        <div class="col-md-3">
+            {{ formmt.username (class="form-control",placeholder="System Id") }}
+        </div>
+        <div class="col-md-3">
+            {{ formmt.passw (class="form-control",placeholder="Password",type="password") }}
+        </div>
+        <div class="col-md-3">
+            {{ formmt.sdc (class="form-control",placeholder="Shortcode") }}
+        </div>
+        <div class="col-md-2">
+          {{ formmt.sdpenv (class="form-select") }}
+        </div>
+        <div class="col-md-6">
+            {{ formmt.msg (class="form-control",placeholder="Message",style="height: 70px") }}
+        </div>
+        <div class="col-md-6">
+          {{ formmt.dt (class="form-control",placeholder="mm/dd/yyyy",type="date") }}
+      </div>
+        <div class="text-center">
+            {{ formmt.submit(class="btn btn-primary") }}
+        </div>
+      </form><!-- End No Labels Form -->
+
+    </div>
+  </div>
+  <!-- Customers Card -->
+<div class="col-xxl-4 col-xl-12">
+
+    <div class="card info-card customers-card">
+
+      <div class="card-body">
+        <h5 class="card-title">log server <span>| test</span></h5>
+
+        <div class="d-flex align-items-center">
+          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+            <i class="bi bi-card-list"></i>
+          </div>
+          <div class="ps-3"> 
+            <br><span class="text-muted small pt-2 ps-1"> {{ txtmsg }} </span>
+            <br><span class="text-muted small pt-2 ps-1"> {{ wkt }} </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- End Customers Card -->
+{% endblock %}
