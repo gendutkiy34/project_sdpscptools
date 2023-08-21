@@ -1,0 +1,28 @@
+{% extends "baseconfig.html" %}
+{% block baseconfig %}
+<ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('sdpconfig')  }}">SDC List</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('sdpconfig')  }}">CP Configuration</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('sdpconfig')  }}">Keyword</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('sdpconfig')  }}">Offer Management</a>
+    </li>
+  </ul>
+  <!-- form check cp id-->
+  <form class="row g-3" method="POST">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="cpid" placeholder="CP ID">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary mb-2"> Check </button>
+        </div>
+    </div> 
+   </form>
+{% endblock %}

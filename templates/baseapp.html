@@ -45,7 +45,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="{{ url_for('static',filename='assets/img/logo.png') }}" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
+        <span class="d-none d-lg-block">SDP SCP Tools V1.0</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -75,7 +75,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url_for('test')  }}">
+        <a class="nav-link collapsed" href="{{ url_for('index')  }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -91,19 +91,14 @@
         </a>
         <ul id="sdpconfig-prod" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
-            <a href="tables-data1.html">
-              <i class="bi bi-circle"></i><span>Data Tables1</span>
+            <a href="{{ url_for('sdpconfig')  }}">
+              <i class="bi bi-circle"></i><span>Configuration</span>
             </a>
             </li>
             <li>
-                <a href="tables-data1.html">
-                  <i class="bi bi-circle"></i><span>Data Tables2</span>
+                <a href="{{ url_for('index')  }}">
+                  <i class="bi bi-circle"></i><span>Cdr</span>
                 </a>
-            </li>
-            <li>
-                    <a href="tables-data1.html">
-                      <i class="bi bi-circle"></i><span>Data Tables3</span>
-                    </a>
             </li>
         </ul>
       </li><!-- End SDP_PROD_CONFIG -->
@@ -113,20 +108,15 @@
           <i class="bi bi-layout-text-window-reverse"></i><span>SCP_PROD_CONFIG</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="scpconfig-prod" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-            <a href="tables-data1.html">
-              <i class="bi bi-circle"></i><span>Data Tables1</span>
+          <li>
+            <a href="{{ url_for('scpconfig')  }}">
+              <i class="bi bi-circle"></i><span>Configuration</span>
             </a>
             </li>
             <li>
-                <a href="tables-data1.html">
-                  <i class="bi bi-circle"></i><span>Data Tables2</span>
+                <a href="{{ url_for('index')  }}">
+                  <i class="bi bi-circle"></i><span>Cdr</span>
                 </a>
-            </li>
-            <li>
-                    <a href="tables-data1.html">
-                      <i class="bi bi-circle"></i><span>Data Tables3</span>
-                    </a>
             </li>
         </ul>
       </li><!-- End SCP_PROD_CONFIG -->
@@ -136,20 +126,15 @@
           <i class="bi bi-layout-text-window-reverse"></i><span>SDP_SIT_CONFIG</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="sdpconfig-sit" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-            <a href="tables-data1.html">
-              <i class="bi bi-circle"></i><span>Data Tables1</span>
+          <li>
+            <a href="{{ url_for('index')  }}">
+              <i class="bi bi-circle"></i><span>Configuration</span>
             </a>
             </li>
             <li>
-                <a href="tables-data1.html">
-                  <i class="bi bi-circle"></i><span>Data Tables2</span>
+                <a href="{{ url_for('index')  }}">
+                  <i class="bi bi-circle"></i><span>Cdr</span>
                 </a>
-            </li>
-            <li>
-                    <a href="tables-data1.html">
-                      <i class="bi bi-circle"></i><span>Data Tables3</span>
-                    </a>
             </li>
         </ul>
       </li><!-- End SDP_SIT_CONFIG -->
@@ -159,20 +144,15 @@
           <i class="bi bi-layout-text-window-reverse"></i><span>SCP_SIT_CONFIG</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="scpconfig-sit" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-            <a href="tables-data1.html">
-              <i class="bi bi-circle"></i><span>Data Tables1</span>
+          <li>
+            <a href="{{ url_for('index')  }}">
+              <i class="bi bi-circle"></i><span>Configuration</span>
             </a>
             </li>
             <li>
-                <a href="tables-data1.html">
-                  <i class="bi bi-circle"></i><span>Data Tables2</span>
+                <a href="{{ url_for('index')  }}">
+                  <i class="bi bi-circle"></i><span>Cdr</span>
                 </a>
-            </li>
-            <li>
-                    <a href="tables-data1.html">
-                      <i class="bi bi-circle"></i><span>Data Tables3</span>
-                    </a>
             </li>
         </ul>
       </li><!-- End SDP_SIT_CONFIG -->
@@ -182,21 +162,21 @@
       <!-- End Icons Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url_for('logcheck')  }}">
+        <a class="nav-link collapsed" href="{{ url_for('trxlog')  }}">
           <i class="bi bi-three-dots"></i>
           <span>CHECK LOG</span>
         </a>
       </li><!-- End CHECK LOG PAGE -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url_for('Simulator')  }}">
+        <a class="nav-link collapsed" href="{{ url_for('index')  }}">
           <i class="bi bi-three-dots"></i>
           <span>PUSH_MT_SIMULATOR</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url_for('Simulator')  }}">
+        <a class="nav-link collapsed" href="{{ url_for('index')  }}">
           <i class="bi bi-three-dots"></i>
           <span>CONNECT NODE SERVER</span>
         </a>

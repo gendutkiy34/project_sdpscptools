@@ -1,18 +1,33 @@
-{% extends "baseflask.html" %}
+{% extends "baseapp.html" %}
 {% block content %}
 <div class="card">
     <div class="card-body">
-      <h5 class="card-title">TRANSACTION LOG</h5>
+      <h5 class="card-title">Transaction logs</h5>
     </div>
-    <div class="col-md-11">
-        <form id="regForm">
-            <p>
-                <input placeholder="transaction id" oninput="this.className = ''" name="fname">
-                <input placeholder="mm/dd/yyyy" oninput="this.className = ''" name="date" type="date">
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)"><i class="fa fa-angle-double-left"></i></button> 
-            </p>      
-        </form>
-    </div>
+    <form class="ps-5" method="POST">
+      <div class="row g-3 ">
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="trxid" placeholder="Transaction id">
+        </div>
+        <div class="col-sm-2">
+          <input type="date" class="form-control" id="trxid" placeholder="mm/dd/yyyy">
+        </div>
+        <div class="col-sm-6">
+          <div >
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="sdp" >
+            <label class="form-check-label" for="gridRadios1">
+              SDP
+            </label>
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="scp">
+            <label class="form-check-label" for="gridRadios2">
+              SCP
+            </label>
+              <button type="submit" class="btn btn-primary mb-2"> Check </button>
+          </div>
+          <br>
+        </div>
+      </div> 
+     </form>
 </div>
 <!-- Log Result Card -->
 <div class="col-xxl-4 col-xl-12">

@@ -14,39 +14,19 @@ app.app_context().push()
 def index():
     return render_template('home.html')
 
-@app.route('/test')
-def test():
-    return render_template('home.html')
+@app.route('/scpconfig')
+def scpconfig():
+    return render_template('baseconfigscp.html')
 
-@app.route('/log')
-def logcheck():
-    return render_template('home.html')
+@app.route('/scdconfig')
+def sdpconfig():
+    return render_template('baseconfigsdp.html')
 
-@app.route('/form', methods=['GET', 'POST'])
-def Simulator():
-    flag=False
-    form=FormHttpReq()
-    tempmsg=""
-    errortext=""
-    errorcode=""
-    if form.validate_on_submit():
-        flag=True
-        tempmsg="""http://{0}/push?TYPE=0&MESSAGE={1}&MOBILENO={2}&ORIGIN_ADDR={3}&REG_DELIVERY=1&PASSWORD={4}&USERNAME={5}""".format(
-            form.sdpenv.data,form.msg.data,form.msisdn.data,form.sdc.data,form.passw.data,form.username.data)
-        form.msg.data=''
-        form.passw.data=''
-        form.sdc.data=''
-        form.sdpenv.data=''
-        form.username.data=''
-        form.dt.data=''
-        form.msisdn.data=''
-        #errorcode,errortext=ReqHttp(tempmsg)
-    return render_template('simulatorform.html',formsim=form,flag=flag,errcode=errorcode,errtext=errortext,txtmsg=tempmsg)
 
-@app.route('/resultsim', methods=['GET', 'POST'])
-def SimResult():
-    return render_template('simulatorresult.html')
+@app.route('/transactionlog')
+def trxlog():
+    return render_template('logtransaction.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0',port='5034')
+    app.run(debug=True,host='0.0.0.0',port='8086')
