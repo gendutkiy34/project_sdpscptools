@@ -1,0 +1,8 @@
+{% extends "logtransaction.html" %}
+{% block logresult %}
+  <ul>
+    {% for t in data%}
+     <li><span class="text-muted small pt-2 ps-1"> {{ t }} </span></li>
+    {% endfor %}
+   </ul>
+{% endblock %}
