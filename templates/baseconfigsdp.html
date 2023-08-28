@@ -2,27 +2,95 @@
 {% block baseconfig %}
 <ul class="nav">
     <li class="nav-item">
-      <a class="nav-link" href="{{ url_for('sdpconfig')  }}">SDC List</a>
+      <a class="nav-link" href="{{ url_for('sdpconfig')  }}" data-bs-toggle="tab" d data-bs-target="#sdc-list">SDC List</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ url_for('sdpconfig')  }}">CP Configuration</a>
+      <a class="nav-link" href="{{ url_for('sdpconfig')  }}" data-bs-toggle="tab" d data-bs-target="#cp-config">CP Configuration</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('sdpconfig')  }}">Keyword</a>
+        <a class="nav-link" href="{{ url_for('sdpconfig')  }}" data-bs-toggle="tab" d data-bs-target="#sub-keyword">Keyword</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('sdpconfig')  }}">Offer Management</a>
+        <a class="nav-link" href="{{ url_for('sdpconfig')  }}" data-bs-toggle="tab" d data-bs-target="#offer-management">Offer Management</a>
     </li>
   </ul>
-  <!-- form check cp id-->
-  <form class="row g-3" method="POST">
-    <div class="row g-3">
-        <div class="col-md-4">
-            <input type="text" class="form-control" id="cpid" placeholder="CP ID">
+  <div class="tab-content pt-2">
+    <div class="tab-pane fade pt-3" id="sdc-list">
+      <h5 class="card-title"><center><span> sdc list</span></center></h5>
+      <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="trxid" placeholder="cp id / shortcode">
         </div>
         <div class="col-md-2">
-            <button type="submit" class="btn btn-primary mb-2"> Check </button>
+          <select class="form-select form-select-sm" aria-label="Small select example">
+            <option selected>Open this select menu</option>
+            <option value="1">cp id</option>
+            <option value="2">shortcode</option>
+          </select>
         </div>
-    </div> 
-   </form>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary mb-3">Check</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade pt-3" id="cp-config">
+      <h5 class="card-title"><center><span> CP Configuration</span></center></h5>
+      <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="trxid" placeholder="cp id">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary mb-3">Check</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade pt-3" id="sub-keyword">
+      <h5 class="card-title"><center><span>sub keyword</span></center></h5>
+      <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="trxid" placeholder="offercode / keyword">
+        </div>
+        <div class="col-md-2">
+          <select class="form-select form-select-sm" aria-label="Small select example">
+            <option selected>Open this select menu</option>
+            <option value="1">offercode</option>
+            <option value="2">keyword</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary mb-3">Check</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade pt-3" id="offer-management">
+      <h5 class="card-title"><center><span> offer management</span></center></h5>
+      <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="trxid" placeholder="cp id / offer code">
+        </div>
+        <div class="col-md-2">
+          <select class="form-select form-select-sm" aria-label="Small select example">
+            <option selected>Open this select menu</option>
+            <option value="1">cp id</option>
+            <option value="2">offer</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary mb-3">Check</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block card %}
+<div class="row">
+<div class="col-lg-12">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Table</h5>
+    </div>
+  </div>
+</div>
+</div>
 {% endblock %}

@@ -20,7 +20,7 @@ def GetScpLog(tgl=None,trxid=None):
         dt_string=ConvertDatetoStr(dt2,'%Y%m%d')
         for nd in list_node :
             cmd='ls -ltr /opt/logs/scp_app | grep {0}'.format(dt_string)
-            stdout,sterr=SshNode(host=nd['host'],user=nd['username'],pwd=nd['password'],cmd=cmd)
+                
     else :
         flag=0
         dt_string=ConvertDatetoStr(dt2,'%Y-%m-%d')

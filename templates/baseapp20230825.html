@@ -123,17 +123,35 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#sdpconfig-sit" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>CDR</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>SDP_SIT_CONFIG</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="sdpconfig-sit" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ url_for('cdrresult')  }}">
-              <i class="bi bi-circle"></i><span>SCP CDR</span>
+            <a href="{{ url_for('index')  }}">
+              <i class="bi bi-circle"></i><span>Configuration</span>
             </a>
             </li>
             <li>
-                <a href="{{ url_for('cdrresult')  }}">
-                  <i class="bi bi-circle"></i><span>SDP CDR</span>
+                <a href="{{ url_for('index')  }}">
+                  <i class="bi bi-circle"></i><span>Cdr</span>
+                </a>
+            </li>
+        </ul>
+      </li><!-- End SDP_SIT_CONFIG -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#scpconfig-sit" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>SCP_SIT_CONFIG</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="scpconfig-sit" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('index')  }}">
+              <i class="bi bi-circle"></i><span>Configuration</span>
+            </a>
+            </li>
+            <li>
+                <a href="{{ url_for('index')  }}">
+                  <i class="bi bi-circle"></i><span>Cdr</span>
                 </a>
             </li>
         </ul>
@@ -151,7 +169,7 @@
       </li><!-- End CHECK LOG PAGE -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url_for('MtSim')  }}">
+        <a class="nav-link collapsed" href="{{ url_for('index')  }}">
           <i class="bi bi-three-dots"></i>
           <span>PUSH_MT_SIMULATOR</span>
         </a>

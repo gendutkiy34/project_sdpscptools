@@ -5,6 +5,11 @@ from datetime import datetime
 
 basedir=os.path.abspath(os.path.dirname(__file__))
 
+def ReadTxtFile(pathfile):
+    with open(pathfile,'r') as f:
+        data=f.read()
+    return data
+
 def ReadJsonFile(pathfile):
     with open(pathfile,'r') as f:
         data=json.load(f)
@@ -28,3 +33,4 @@ def SshNode(host=None,user=None,pwd=None,cmd=None):
     client.connect(hostname=host,username=user,password=pwd)
     stdin,stdout,stderr=client.exec_command(cmd)
     return stdout,stderr
+    client.close()

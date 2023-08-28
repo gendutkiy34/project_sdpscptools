@@ -6,36 +6,22 @@
     </div>
     <form class="ps-5" method="POST">
       {{ formlog.hidden_tag() }}
-      <div class="row g-3 ">
-        <div class="col-sm-2">
+      <div class="row">
+        <div class="col-md-3">
           {{ formlog.trxid(class="form-control",placeholder="Transaction id",type="text" ) }}
           <!--<input type="text" class="form-control" id="trxid" placeholder="Transaction id">-->
         </div>
-        <div class="col-sm-3">
-          {{ formlog.dt(class="form-control",placeholder="mm/dd/yyyy",type="date") }}
+        <div class="col-md-3">
+          {{ formlog.dt(class="form-control",placeholder="mm/dd/yyyy",type="date") }} 
           <!--<input type="date" class="form-control" id="trxid" placeholder="mm/dd/yyyy">-->
         </div>
-        <div class="col-sm-2">
-          <div >
-           {{ formlog.logtype (class="form-control",type="radio",name="gridRadios") }}
-            <!--<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="sdp" >
-            <label class="form-check-label" for="gridRadios1">
-              SDP
-            </label>
-            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="scp">
-            <label class="form-check-label" for="gridRadios2">
-              SCP
-            </label>-->
-              <!--<button type="submit" class="btn btn-primary mb-2"> Check </button>-->
-          </div>
-          <div class="row">
-            <div class="col-sm-3">
-              {{ formlog.submit(type="submit",class="btn btn-primary mb-2") }} 
-            </div>
-          </div>
-          
-          <br>
+        <div class="col-auto">
+          {{ formlog.logtype (class="form-check",type="radio",name="gridRadios") }} 
         </div>
+        <div class="col">
+            {{ formlog.submit(type="submit",class="btn btn-primary mb-2") }} 
+        </div>
+        <br>
       </div> 
      </form>
 </div>
@@ -55,6 +41,9 @@
               <li><span class="text-muted small pt-2 ps-1"> {{ d }} </span></li>
               {% endfor %}
             </ul>
+            <br><span class="text-muted small pt-2 ps-1">
+              <center>====================================  END  ====================================</center>
+            </span>
             {% else %}
             <h5 class="card-title">no result</h5>
             {% endif %}

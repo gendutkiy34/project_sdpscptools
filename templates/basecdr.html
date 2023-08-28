@@ -1,0 +1,27 @@
+{% extends "baseapp.html" %}
+{% block content %}
+<section class="section">  
+    <!--card index-->
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              {% block cdr %}
+      
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-xxl-4 col-xl-12">
+
+        <div class="card info-card customers-card">
+          <div class="card-body">
+            <h5 class="card-title">{{ cdrtype }} CDR's <span> | msisdn : {{ msisd }}</span></h5>
+          </div>
+        </div>
+    </div>    
+    
+</section>
+  {% endblock %}
