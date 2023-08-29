@@ -16,9 +16,10 @@ def GetScpLog(tgl=None,trxid=None):
     dt1=GetToday()
     dt2=ConvertStrtoDate(tgl,'%Y-%m-%d')
     if dt1.date() == dt2.date() :
+        dt_string=ConvertDatetoStr(dt2,'%Y%m%d')
         for nd in list_node :
-            cmd=''
-            SshNode(host=nd['host'],user=nd['username'],pwd=nd['password'],cmd=None):
+            cmd='grep -ah {0} /opt/logs/scp_app/*{1}* '.format(trxid,dt_string)
+            SshNode(host=nd['host'],user=nd['username'],pwd=nd['password'],cmd=None)
 
     else :
         flag=0
