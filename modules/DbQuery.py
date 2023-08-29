@@ -1,5 +1,5 @@
-from connection import OracleCon
-from general import ReadJsonFile,ReadTxtFile
+from modules.connection import OracleCon
+from modules.general import ReadJsonFile,ReadTxtFile
 import json
 
 
@@ -25,6 +25,7 @@ def ReadTrx(conpath=None,tgl=None,msisdn=None,hour=None,logtype=None,sqlraw=None
     mon=dt[1]
     day=dt[2]
     year=dt[0]
+    data_raw=[]
     if str(msisdn)[0] == '0' :
         msisdn=str(msisdn)[1:]
     else :
@@ -32,14 +33,17 @@ def ReadTrx(conpath=None,tgl=None,msisdn=None,hour=None,logtype=None,sqlraw=None
     try:
         conn=OracleCon(conpath)
         cur=conn.cursor()
+        data_raw=[]
         if logtype == 'scp' :
             sql=sqlraw
             trxsql=sql.format(day=day,mon=mon,hour=hour,msisdn=msisdn)
-            data_raw=cur.execute(trxsql)
+            tempdata=cur.execute(trxsql)
         else :
             sql=sqlraw
             trxsql=sql.format(day=day,mon=mon,hour=hour,msisdn=msisdn)
-            data_raw=cur.execute(trxsql)
+            tempdata=cur.execute(trxsql)
+        for d in tempdata:
+            data_raw.append(d)
     except Exception :
-        data_raw=['data not found']
+        data_raw.append('data not found')
     return data_raw

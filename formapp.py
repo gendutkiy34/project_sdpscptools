@@ -34,3 +34,10 @@ class FormCdr(FlaskForm):
                                                                ('scp','SCP')])
     submit=SubmitField('Submit')
 
+
+class FormCpId(FlaskForm):
+        cpid= StringField('transaction id',validators=[DataRequired()])
+        submit=SubmitField('Submit')
+
+
+

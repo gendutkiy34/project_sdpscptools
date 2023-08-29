@@ -18,7 +18,39 @@
 
         <div class="card info-card customers-card">
           <div class="card-body">
-            <h5 class="card-title">{{ cdrtype }} CDR's <span> | msisdn : {{ msisd }}</span></h5>
+            <h5 class="card-title">{{ cdrs }} CDR's <span class ="text-muted small pt-2 ps-1"> | msisdn : {{ msisdns }}</span></h5>
+            {% if status %}
+            <ul>
+              {% if cdrs == 'scp' %}
+                 {% for t in listtrx %}
+                   <li><pre><span class ="text-muted small pt-2 ps-1">---------------------------------------------------------
+CDR_TIMESTAMP    : {{ t['CDR_TIMESTAMP'] }}
+CALL_REFERENCE   : {{ t['CALL_REFERENCE_NUMBER'] }}
+TRANSACTION_ID   : {{ t['TRANSACTION_ID'] }}
+CALLING_PARTY    : {{ t['CALLING_PARTY'] }}
+CALLED_PARTY     : {{ t['CALLED_PARTY'] }}
+SUBSCRIBER_TYPE  : {{ t['SUBSCRIBER_TYPE'] }}
+SERVICE_KEY      : {{ t['SERVICE_KEY'] }}
+CALL_STATUS      : {{ t['CALL_STATUS'] }}
+DIAMETER_CODES   : {{ t['DIAMETER_RESULT_CODES'] }}
+DIAMETER_SESSION : {{ t['DIAMTER_SESSION_ID'] }}
+CELLID_MSC_VLR   : {{ t['CELL_ID'] }} - {{ t['MSC_ADDRESS'] }} - {{ t['VLR_ADDRESS'] }}
+CALL_START_TIME  : {{ t['CALL_START_TIME'] }}
+CALL_STOP_TIME   : {{ t['CALL_DISCONNECTING_TIME'] }}
+CALL_DURATION    : {{ t['CALL_DURATION'] }}
+CALL_START_TIME  : {{ t['CALL_START_TIME'] }}
+FOC STATUS       : {{ t['IS_FOC'] }}
+ROAMING STATUS   : {{ t['IS_ROAMING'] }}
+BYPASS STATUS    : {{ t['IS_CHARGING_OVERRULED'] }}
+NORMALIZE        : {{ t['NORMALISED_NUMBER'] }}
+DENORMALIZE      : {{ t['TRANSLATED_NUMBER'] }}
+---------------------------------------------------------</span></pre></li>
+                 {% endfor %}
+              {% else %}
+              {% endif %}
+            </ul>
+            {% else %}
+            {% endif %}
           </div>
         </div>
     </div>    

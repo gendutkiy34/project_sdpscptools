@@ -14,46 +14,44 @@
                 </div>
 
                 <!-- FORM -->
-                <form class="ps-5" method="POST">
-                    {{ formsim.hidden_tag() }}
+                <form class="ps-5" action="mtsimulator" method="POST">
                     <div class="row">
-                        <div class="col-md-2">
-                            {{ formsim.msisdn(class="form-control",placeholder="msisdn",type="text" ) }}
-                            <!--<input type="text" class="form-control" id="trxid" placeholder="msisdn">-->
+                        <div class="col-md-2">        
+                            <input type="text" class="form-control" id="trxid" name="msisdn" placeholder="msisdn">
                         </div>
                         <div class="col-md-2">
-                            {{ formsim.username(class="form-control",placeholder="systemid",type="text" ) }}
-                            <!--<input type="text" class="form-control" id="trxid" placeholder="systemid">-->
+                            <input type="text" class="form-control" id="trxid" name="shortcode" placeholder="shortcode">
                         </div>
                         <div class="col-md-2">
-                            {{ formsim.passw(class="form-control",placeholder="password",type="password" ) }}
-                            <!--<input type="password" class="form-control" id="trxid" placeholder="password">-->
-                        </div>
-                        
-                        <div class="col-auto">
-                            {{ formsim.submit(class="fbtn btn-primary mb-3",type="submit" ) }}
-                            <!--<button type="submit" class="btn btn-primary mb-3">Check</button>-->
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            {{ formsim.msg(class="form-control",placeholder="message"  ,style="height: 100px") }}
-                            <!--<input type="textarea" class="form-control" id="trxid" placeholder="message"  style="height: 100px">-->
+                            <input type="text" class="form-control" id="trxid" name="systemid" placeholder="systemid">
                         </div>
                         <div class="col-md-2">
-                            {{ formsim.sdpenv(class="form-control") }}
-                            <!--<select class="form-select form-select-sm" aria-label="Small select example">
+                            <input type="text" class="form-control" id="trxid" name="password" placeholder="password">
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select form-select-sm"  name="env" aria-label="Small select example">
                                 <option selected>environment</option>
-                                <option value="1">PROD</option>
-                                <option value="2">SIT</option>
-                              </select>-->
+                                <option value="prod">PROD</option>
+                                <option value="sit">SIT</option>
+                            </select>
                         </div>
                     </div>
+                    <br>
+                    <div class="row">
+                        
+                        <div class="col-md-3">
+                            <input type="textarea" class="form-control" id="trxid" name="message" placeholder="message"  style="height: 100px">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-3">Check</button>
+                        </div>
+                    </div>   
                     <br>
                 </form>
         </div>
     </div>
-    <!--card log result-->
+
+
     <!--card log result-->
     <div class="row">
         <div class="col-lg-12">
@@ -61,19 +59,21 @@
                 <div class="card-body">
                     <h5 class="card-title">Test Result </h5>
                     <div class="ps-3">
-                        {% if flag %}
-                        <br><span class="text-muted small pt-2 ps-1"> {{ uri }}</span>
+                        {% if status %}
+                        <h7 class="card-title">URI :</h7>
+                        <br><span class ="text-muted small pt-2 ps-1">   {{ uri }}</span>
+                        <br><br><h7 class="card-title">HTTP RESPOND CODE :</h7>
+                        <br><span class ="text-muted small pt-2 ps-1">   {{ http_respon_code }}</span>
+                        <br><br><h7 class="card-title">HTTP RESPOND TEXT :</h7>
+                        <br><span class ="text-muted small pt-2 ps-1">   {{ http_respon_text }}</span>
                         {% else %}
-                        <h5 class="card-title">no result</h5>
+                        <br> <span class ="text-muted small pt-2 ps-1">no http result</span>
                         {% endif %}
-                      </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-</section>
 
 </section>
 

@@ -1,33 +1,33 @@
 {% extends "basecdr.html" %}
 {% block cdr %}
 <div class="card-body">
-    <h5 class="card-title">CDR's Transaction</h5>
+    <h5 class="card-title">CDR's Transaction PROD</h5>
 </div>
-<form class="ps-5" method="POST">
+<form class="ps-5" action="cdr" method="POST">
     <div class="row">
         <div class="col-auto">
-            <input type="text" class="form-control" id="trxid" placeholder="msisdn">
+            <input type="text" class="form-control" name="msisdn" id="trxid" placeholder="msisdn" value="" required>
         </div>
         <div class="col-md-3">
-            <input type="date" class="form-control" id="trxid" placeholder="mm/dd/yyyy">
+            <input type="date" class="form-control" id="trxid" name="date" placeholder="mm/dd/yyyy" value="" required>
         </div>
         <div class="col-md-2">
-            <select class="form-select form-select-sm" aria-label="Small select example">
+            <select class="form-select form-select-sm" name="hour" aria-label="Small select example" value="" required>
                 <option selected>hours</option>
-                <option value="1">00</option>
-                <option value="2">01</option>
-                <option value="3">02</option>
+                {% for h in list_hour%}
+                <option value="{{ h }}">{{ h }}</option>
+                {% endfor %}
               </select>
         </div>
         <div class="col-auto">
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
+                <input class="form-check-input" type="radio" name="cdrtype" id="flexRadioDefault1" value="sdp" required>
+                <label class="form-check-label" for="flexRadioDefault1" >
                   SDP
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <input class="form-check-input" type="radio" name="cdrtype" id="flexRadioDefault2" value="scp" required>
                 <label class="form-check-label" for="flexRadioDefault2">
                   SCP
                 </label>

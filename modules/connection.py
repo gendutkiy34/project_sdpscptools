@@ -1,7 +1,7 @@
 import json
 import os
 import cx_Oracle
-from general import ReadJsonFile
+from modules.general import ReadJsonFile
 
 basedir=os.path.abspath(os.path.dirname(__file__))
 

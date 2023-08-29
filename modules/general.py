@@ -34,3 +34,12 @@ def SshNode(host=None,user=None,pwd=None,cmd=None):
     stdin,stdout,stderr=client.exec_command(cmd)
     return stdout,stderr
     client.close()
+
+def ConvertListToDict(listkey=None,listvalue=None):
+    list_item=[]
+    for v in listvalue:
+        item={}
+        for k,val in zip(listkey,v):
+            item[k]=val
+        list_item.append(item)
+    return list_item
