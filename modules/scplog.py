@@ -1,6 +1,6 @@
 import os
 import paramiko
-from general import ConvertStrtoDate,ConvertDatetoStr,GetToday,SshNode
+from modules.general import ConvertStrtoDate,ConvertDatetoStr,GetToday,SshNode
 
 list_node=[
     {"nodename":"jktpkpscplog01",
@@ -14,15 +14,15 @@ list_node=[
 ]
 def GetScpLog(tgl=None,trxid=None):
     dt1=GetToday()
-    dt2=ConvertStrtoDate(tgl,'%Y-%m-%d')
+    dt2=ConvertStrtoDate(str(tgl),'%Y-%m-%d')
     if dt1.date() == dt2.date() :
-        dt_string=ConvertDatetoStr(dt2,'%Y%m%d')
         for nd in list_node :
-            cmd='grep -ah {0} /opt/logs/scp_app/*{1}* '.format(trxid,dt_string)
+            cmd=''
             SshNode(host=nd['host'],user=nd['username'],pwd=nd['password'],cmd=None)
-
     else :
         flag=0
-
-
-GetScpLog(tgl='2023-08-22')
+        dt_string=ConvertDatetoStr(dt2,'%Y-%m-%d')
+        for nd in list_node :
+            cmd='ls -ltr /opt/logs/scp_app | grep {0}'.format(dt_string)
+            stdout,sterr=SshNode(host=nd['host'],user=nd['username'],pwd=nd['password'],cmd=cmd)
+    return stdout,sterr
