@@ -1,28 +1,12 @@
-{% extends "baseapp.html" %}
-{% block content %}
-<section class="section">  
-    <!--card index-->
-    <div class="row">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
-              {% block cdr %}
-      
-              {% endblock %}
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <div class="col-xxl-4 col-xl-12">
-        <div class="card info-card customers-card">
-          <div class="card-body">
-            <h5 class="card-title">{{ cdrs }} CDR's <span class ="text-muted small pt-2 ps-1"> | msisdn : {{ msisdns }}</span></h5>
-            {% if status %}
-            <ul>
-              {% if cdrs == 'scp' %}
-                 {% for t in listtrx %}
-                   <li><pre><span class ="text-muted small pt-2 ps-1">---------------------------------------------------------
+{% extends "basecdr.html" %}
+{% block cdrresult %}
+<div class="card-body">
+    <h5 class="card-title">{{ cdrs }} CDR's <span class ="text-muted small pt-2 ps-1"> | msisdn : {{ msisdns }}</span></h5>
+    {% if status %}
+    <ul>
+      {% if cdrs == 'scp' %}
+         {% for t in listtrx %}
+           <li><pre><span class ="text-muted small pt-2 ps-1">---------------------------------------------------------
 CDR_TIMESTAMP    : {{ t['CDR_TIMESTAMP'] }}
 CALL_REFERENCE   : {{ t['CALL_REFERENCE_NUMBER'] }}
 TRANSACTION_ID   : {{ t['TRANSACTION_ID'] }}
@@ -44,34 +28,26 @@ BYPASS STATUS    : {{ t['IS_CHARGING_OVERRULED'] }}
 NORMALIZE        : {{ t['NORMALISED_NUMBER'] }}
 DENORMALIZE      : {{ t['TRANSLATED_NUMBER'] }}
 ---------------------------------------------------------</span></pre></li>
-                 {% endfor %}
-              {% else %}
-                {% for t in listtrx %}
-              <li><pre><span class ="text-muted small pt-2 ps-1">---------------------------------------------------------
+         {% endfor %}
+      {% else %}
+      <li><pre><span class ="text-muted small pt-2 ps-1">---------------------------------------------------------
 CDR_TIMESTAMP    : {{ t['CDRTIME'] }}
 CLIENT ID        : {{ t['CLIENTTRANSACTIONID'] }}
 MSISDN           : {{ t['APARTY'] }}
 CP NAME          : {{ t['CP_NAME'] }}
 CP ID            : {{ t['CONTENTPROVIDERID'] }}
-OFFERCODE        : {{ t['OFFERCODE'] }}
 NETWORK MODE     : {{ t['NETWORKMODE'] }}
-SDC              : {{ t['SHORTCODE'] }}
+SHORTCODE        : {{ t['SHORTCODE'] }}
 KEYWORD          : {{ t['KEYWORD'] }}
 CATEGORYID       : {{ t['CATEGORYID'] }}
-CHARGE           : {{ t['CALLCHARGE'] }}
 BASIC CAUSE      : {{ t['BASICCAUSE'] }}
 RESERVE CODE     : {{ t['RESERVE'] }}
 COMMIT CODE      : {{ t['COMMIT'] }}
 CP RESPOND CODE  : {{ t['CP_RESPOND_CODE'] }}
 ---------------------------------------------------------</span></pre></li>
-              {% endfor %}
-              {% endif %}
-            </ul>
-            {% else %}
-            {% endif %}
-          </div>
-        </div>
-    </div>    
-    
-</section>
-  {% endblock %}
+      {% endif %}
+    </ul>
+    {% else %}
+    {% endif %}
+  </div>
+{% endblock %}

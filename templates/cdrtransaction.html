@@ -3,16 +3,16 @@
 <div class="card-body">
     <h5 class="card-title">CDR's Transaction PROD</h5>
 </div>
-<form class="ps-5" action="cdr" method="POST">
+<form class="ps-5" action="{{ url_for('cdrresult') }}" method="POST">
     <div class="row">
         <div class="col-auto">
-            <input type="text" class="form-control" name="msisdn" id="trxid" placeholder="msisdn" value="" required>
+            <input type="text" class="form-control" name="msisdn" id="msisdn" placeholder="msisdn" required>
         </div>
         <div class="col-md-3">
-            <input type="date" class="form-control" id="trxid" name="date" placeholder="mm/dd/yyyy" value="" required>
+            <input type="date" class="form-control" id="date" name="date" placeholder="mm/dd/yyyy" required>
         </div>
         <div class="col-md-2">
-            <select class="form-select form-select-sm" name="hour" aria-label="Small select example" value="" required>
+            <select class="form-select form-select-sm" name="hour" aria-label="Small select example" equired>
                 <option selected>hours</option>
                 {% for h in list_hour%}
                 <option value="{{ h }}">{{ h }}</option>

@@ -7,6 +7,7 @@ from modules.scplog import GetScpLog
 from modules.sdplog import GetSdpLog
 from modules.ReadSdpLog import ExtractScmLog
 from modules.DbQuery import ReadConfig,ReadTrx
+from modules.extractcdr import ExtractCdrSdp
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'tO$&!|0wkamvVia0?n$NqIRVWOG'
@@ -59,7 +60,7 @@ def trxlog():
                 list_txt.append('data not found')  
     return render_template('logtransaction.html',formlog=form,flag=flag,data=list_txt,logtype=log,trxid=trx)
 
-@app.route('/cdr', methods=['GET', 'POST'])
+@app.route('/cdr', methods=['GET',  'POST'])
 def cdrresult():
     status=False
     cdrtype=''
@@ -71,13 +72,17 @@ def cdrresult():
     list_trx=[]
     if request.method == 'POST' :
         status=True
-        if str(request.form['msisdn'])[0] == 0 :
-            msisdn="62{0}".format(str(request.form['msisdn'])[1:])
+        if str(request.form['msisdn'])[0] == '0' :
+            msisdn2=str(request.form['msisdn'])[1:]
+        elif str(request.form['msisdn'])[:2] == '62':
+            msisdn2=str(request.form['msisdn'])[2:]
         else :
-            msisdn=request.form['msisdn']
+            msisdn2=str(request.form['msisdn'])[2:]
         cdrtype=request.form['cdrtype'] 
         hour=request.form['hour'] 
         date=request.form['date'] 
+        msisdn=request.form['msisdn']
+        print('data received : ',msisdn ,',',date,',',hour,',',cdrtype,)
         if  request.form['cdrtype'] == "scp" :
             list_key=["CDR_TIMESTAMP","CALL_REFERENCE_NUMBER","TRANSACTION_ID","CALLING_PARTY","CALLED_PARTY",
                       "SUBSCRIBER_TYPE","CALL_STATUS","DIAMETER_RESULT_CODES","DIAMETER_ERROR_MESSAGE",
@@ -87,14 +92,31 @@ def cdrresult():
                       "SERVICE_KEY","IS_FOC"]
             dbcon=('./connections/scpprodtrx.json')
             sqltxt=ReadTxtFile('./sql/scptrx.sql')
-            trxs=ReadTrx(conpath=dbcon,tgl=date,msisdn=msisdn,hour=hour,logtype=request.form['cdrtype'],sqlraw=sqltxt)
+            trxs=ReadTrx(conpath=dbcon,tgl=date,msisdn=msisdn2,hour=hour,logtype=request.form['cdrtype'],sqlraw=sqltxt)
+            print('data process in scp : ',msisdn2 ,',',date,',',hour,',',cdrtype)
+        elif  request.form['cdrtype'] == "sdp" : 
+            list_key=["CDRTIME","TASKID ","CLIENTTRANSACTIONID","TRANSACTIONID","APARTY","BASICCAUSE",
+                      "INTERNALCAUSE","CALLCHARGE","OFFERCODE","CP_NAME","CONTENTPROVIDERID","NETWORKMODE",
+                      "SHORTCODE ","KEYWORD ","CATEGORYID","THIRDPARTYERRORCODE"]
+            dbcon=('./connections/sdpprodtrx.json')
+            sqltxt=ReadTxtFile('./sql/sdptrx.sql')
+            trxs=ReadTrx(conpath=dbcon,tgl=date,msisdn=msisdn2,hour=hour,logtype=request.form['cdrtype'],sqlraw=sqltxt)
+            print('data process in sdp : ',msisdn2 ,',',date,',',hour,',',cdrtype)
         else :
-            pass
-    if len(trxs) > 0 :
-        list_trx=ConvertListToDict(listkey=list_key,listvalue=trxs)
-    else :
-        list_trx.append('data not found')
+            print('data not process: ',msisdn2 ,',',date,',',hour,',',cdrtype)
+        if len(trxs) > 0 :
+          if request.form['cdrtype'] == "sdp" :
+            templist=ConvertListToDict(listkey=list_key,listvalue=trxs)
+            list_trx=ExtractCdrSdp(listdict=templist)
+          elif request.form['cdrtype'] == "scp" : 
+            list_trx=ConvertListToDict(listkey=list_key,listvalue=trxs)
+          else :
+            list_trx.append('data not found') 
+        else :
+          list_trx.append('data not found')
+        print(list_trx)
     return render_template('cdrtransaction.html',list_hour=list_hour,cdrs=cdrtype ,msisdns=msisdn,hours=hour,dates=date,status=status,listtrx=list_trx)
+
 
 @app.route('/mtsimulator', methods=['GET', 'POST'])
 def MtSim():
@@ -104,6 +126,7 @@ def MtSim():
     uri=''
     msisdn=''
     if request.method == 'POST' :
+        print('data received : ',request.form['msisdn'],',',request.form['env'],',',request.form['shortcode'],',',request.form['systemid'],',',request.form['password'],',',request.form['message'])
         status=True
         if request.form['env'] == 'prod' :
             serv='192.168.86.208:9003'
@@ -112,11 +135,14 @@ def MtSim():
         else :
             serv='xxxx'
         if str(request.form['msisdn'])[0] == 0 :
-            msisdn=str(request.form['msisdn'])[1:]
+            msisdn='62{}'.format(str(request.form['msisdn'])[1:])
         else :
-            msisdn=str(request.form['msisdn'])[2:]
+            msisdn=str(request.form['msisdn'])
         uri="http://{0}/push?TYPE=0&MESSAGE={1}&MOBILENO={2}&ORIGIN_ADDR={3}&REG_DELIVERY=1&PASSWORD={4}&USERNAME={5}".format(serv,request.form['message'],msisdn,request.form['shortcode'],request.form['password'],request.form['systemid'])
+        print('URI : ',uri)
         rcode,rtext=ReqHttp(uri)
+        print('HTTP RESPOND CODE : ',rcode)
+        print('SDP RESPOND : ',rtext)
     return render_template('simulatorform.html',status=status,msisdn=msisdn,uri=uri,http_respon_code=rcode,http_respon_text=rtext)
 
 @app.route('/sdpconfig', methods=['GET', 'POST'])

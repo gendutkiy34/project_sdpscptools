@@ -40,6 +40,6 @@ def ConvertListToDict(listkey=None,listvalue=None):
     for v in listvalue:
         item={}
         for k,val in zip(listkey,v):
-            item[k]=val
+            item[k.strip()]=val
         list_item.append(item)
     return list_item

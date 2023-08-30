@@ -17,16 +17,16 @@
                 <form class="ps-5" action="mtsimulator" method="POST">
                     <div class="row">
                         <div class="col-md-2">        
-                            <input type="text" class="form-control" id="trxid" name="msisdn" placeholder="msisdn">
+                            <input type="text" class="form-control" id="trxid" name="msisdn" placeholder="msisdn" value="" required>
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="form-control" id="trxid" name="shortcode" placeholder="shortcode">
+                            <input type="text" class="form-control" id="trxid" name="shortcode" placeholder="shortcode" value="" required>
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="form-control" id="trxid" name="systemid" placeholder="systemid">
+                            <input type="text" class="form-control" id="trxid" name="systemid" placeholder="systemid" value="" required>
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="form-control" id="trxid" name="password" placeholder="password">
+                            <input type="text" class="form-control" id="trxid" name="password" placeholder="password" value="" required>
                         </div>
                         <div class="col-md-2">
                             <select class="form-select form-select-sm"  name="env" aria-label="Small select example">
@@ -64,7 +64,7 @@
                         <br><span class ="text-muted small pt-2 ps-1">   {{ uri }}</span>
                         <br><br><h7 class="card-title">HTTP RESPOND CODE :</h7>
                         <br><span class ="text-muted small pt-2 ps-1">   {{ http_respon_code }}</span>
-                        <br><br><h7 class="card-title">HTTP RESPOND TEXT :</h7>
+                        <br><br><h7 class="card-title">SDP RESPOND :</h7>
                         <br><span class ="text-muted small pt-2 ps-1">   {{ http_respon_text }}</span>
                         {% else %}
                         <br> <span class ="text-muted small pt-2 ps-1">no http result</span>
