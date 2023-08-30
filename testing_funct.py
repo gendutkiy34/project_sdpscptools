@@ -13,6 +13,7 @@ from modules.extractcdr import ExtractCdrSdp
 
 dbcon=('./connections/sdpprodtrx.json')
 sqltxt=ReadTxtFile('./sql/sdptrx.sql')
+<<<<<<< HEAD
 temptrxs=ReadTrx(conpath=dbcon,tgl='2023-08-30',msisdn='89668399434',hour='09',logtype='scp',sqlraw=sqltxt)
 
 list_key=["CDRTIME","TASKID ","CLIENTTRANSACTIONID","TRANSACTIONID","APARTY","BASICCAUSE",
@@ -23,6 +24,9 @@ list_trx_clean=ExtractCdrSdp(listdict=list_trx)
 
 for t in list_trx_clean:
     print('\n',t,'\n')
+=======
+temptrxs=ReadTrx(conpath=dbcon,tgl='2023-08-29',msisdn='895360965930',hour='11',logtype='sdp',sqlraw=sqltxt)
+>>>>>>> 145ba57fefd693fccb4b7961d603bb647b95c7cb
 
 
 
