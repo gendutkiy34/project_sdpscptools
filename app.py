@@ -3,7 +3,7 @@ from flask import Flask,render_template,url_for,redirect,request
 from modules.general import ReadJsonFile,ReadTxtFile,ConvertListToDict
 from formapp import FormHttpReq,FormLog,FormCdr,FormCpId
 from modules.htttprequest import ReqHttp
-from modules.scplog import GetScpLog
+from modules.scplog import GetScpLog,ExtractScpLog
 from modules.sdplog import GetSdpLog
 from modules.ReadSdpLog import ExtractScmLog
 from modules.DbQuery import ReadConfig,ReadTrx
@@ -22,46 +22,44 @@ list_hour=['00','01','02','03','04','05','06','08','09','10','11',
 def index():
     return render_template('home.html')
 
-@app.route('/scpconfig')
-def scpconfig():
-    return render_template('baseconfigscp.html')
 
 @app.route('/scdconfig')
 def sdpconfig():
     return render_template('baseconfigsdp.html')
 
+@app.route('/scpconfig')
+def scpconfig():
+    return render_template('baseconfigscp.html')
+
 
 @app.route('/transactionlog', methods=['GET', 'POST'])
 def trxlog():
+    print('service : log transaction')
     flag=False
-    form = FormLog()
     list_txt=[]
-    log=""
-    trx="" 
-    if form.validate_on_submit():
+    logtype=""
+    trxid=""
+    date=""
+    restext=''
+    if request.method == 'POST' :
         flag=True
-        log=form.logtype.data
-        trx=form.trxid.data
-        if log == "scp" :
-            output,err=GetScpLog(tgl=form.dt.data,trxid=form.trxid.data)
-            for t in output:
-                temp=t.replace('\n','')
-                list_txt.append(Extemp)  
+        logtype=request.form['logtype'] 
+        trxid=request.form['trxid'] 
+        date=request.form['date'] 
+        print('data received : ',trxid,',',date,',',logtype)
+        if logtype == 'scp' :
+            restext=GetScpLog(tgl=date,trxid=trxid)
+            list_txt=ExtractScpLog(list_log=restext)
         else :
-            output=GetSdpLog(tgl=form.dt.data,trx=form.trxid.data)
-            for t in output:
-                temp=t.replace('\n','')
-                xtemp=ExtractScmLog(temp)
-                list_txt.append(temp)  
-        form.dt.data='mm/dd/yyyy'
-        form.trxid.data=''
-        form.logtype.data='' 
-        if len(list_txt) < 1 :
-                list_txt.append('data not found')  
-    return render_template('logtransaction.html',formlog=form,flag=flag,data=list_txt,logtype=log,trxid=trx)
+            list_txt=GetSdpLog(tgl=date,trxid=trxid)
+    nlines=len(list_txt)
+    print("result log : ",nlines)
+    return render_template('logtransaction.html',flag=flag,data=list_txt,logtype=logtype,trxid=trxid,total=nlines)
+
 
 @app.route('/cdr', methods=['GET',  'POST'])
 def cdrresult():
+    print('service : cdr transaction')
     status=False
     cdrtype=''
     msisdn=''
@@ -111,11 +109,12 @@ def cdrresult():
           elif request.form['cdrtype'] == "scp" : 
             list_trx=ConvertListToDict(listkey=list_key,listvalue=trxs)
           else :
-            list_trx.append('data not found') 
+            pass
         else :
-          list_trx.append('data not found')
+          pass
         print(list_trx)
-    return render_template('cdrtransaction.html',list_hour=list_hour,cdrs=cdrtype ,msisdns=msisdn,hours=hour,dates=date,status=status,listtrx=list_trx)
+    nlines=len(list_trx)
+    return render_template('cdrtransaction.html',list_hour=list_hour,cdrs=cdrtype ,msisdns=msisdn,hours=hour,dates=date,status=status,listtrx=list_trx,total=nlines)
 
 
 @app.route('/mtsimulator', methods=['GET', 'POST'])
@@ -148,6 +147,23 @@ def MtSim():
 @app.route('/sdpconfig', methods=['GET', 'POST'])
 def SdpConfig():
     return render_template('baseconfigsdp.html')
+
+
+@app.route('/offer', methods=['GET',  'POST'])
+def offermanagement():
+    return render_template('baseconfigsdp.html')
+
+
+@app.route('/cpconfig')
+def cpconfig():
+    return render_template('cpconfig.html')
+
+
+@app.route('/sdc')
+def sdclist():
+    return render_template('baseconfigsdp.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0',port='8086')

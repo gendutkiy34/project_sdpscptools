@@ -18,8 +18,9 @@
         <div class="card info-card customers-card">
           <div class="card-body">
             <h5 class="card-title">{{ cdrs }} CDR's <span class ="text-muted small pt-2 ps-1"> | msisdn : {{ msisdns }}</span></h5>
-            {% if status %}
+            {% if status %} <!--check flag-->
             <ul>
+            {%if total > 0 %} <!--check data is None-->
               {% if cdrs == 'scp' %}
                  {% for t in listtrx %}
                    <li><pre><span class ="text-muted small pt-2 ps-1">---------------------------------------------------------
@@ -66,9 +67,12 @@ CP RESPOND CODE  : {{ t['CP_RESPOND_CODE'] }}
 ---------------------------------------------------------</span></pre></li>
               {% endfor %}
               {% endif %}
+            {% else %} <!--check data is None-->
+            <li><<span class ="text-muted small pt-2 ps-1"> DATA NOT FOUND !!!!</span></li>
+            {% endif %} <!--check data is None-->
             </ul>
-            {% else %}
-            {% endif %}
+            {% else %} <!--check flag-->
+            {% endif %} <!--check flag-->
           </div>
         </div>
     </div>    

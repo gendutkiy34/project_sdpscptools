@@ -16,31 +16,33 @@
   </ul>
   <div class="tab-content pt-2">
     <div class="tab-pane fade pt-3" id="sdc-list">
+      <form action="{{ url_for('sdclist') }}" method="post">
       <h5 class="card-title"><center><span> sdc list</span></center></h5>
       <div class="row">
         <div class="col-md-3">
-            <input type="text" class="form-control" id="trxid" placeholder="cp id / shortcode">
+            <input type="text" class="form-control" name="cpsdc" placeholder="cp id / shortcode" required>
         </div>
         <div class="col-md-2">
-          <select class="form-select form-select-sm" aria-label="Small select example">
-            <option selected>Open this select menu</option>
-            <option value="1">cp id</option>
-            <option value="2">shortcode</option>
+          <select class="form-select form-select-sm" name="conditiontype" aria-label="Small select example" >
+            <option selected>choose one</option>
+            <option value="cp" >cp id</option>
+            <option value="sdc" >shortcode</option>
           </select>
         </div>
         <div class="col-md-2">
             <button type="submit" class="btn btn-primary mb-3">Check</button>
         </div>
       </div>
+      </form>
     </div>
     <div class="tab-pane fade pt-3" id="cp-config">
       <h5 class="card-title"><center><span> CP Configuration</span></center></h5>
       <div class="row">
-        <form action="cpconfig" method="post">
+        <form action="{{ url_for('cpconfig') }}" method="post">
         <div class="col-md-2">
-          <input type="text" class="form-control" id="trxid" placeholder="cp id" value="" required>
+          <input type="text" class="form-control" name="cpid" placeholder="cp id" required>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <button type="submit" class="btn btn-primary mb-3">Check</button>
         </div>
       </form>
@@ -67,11 +69,11 @@
     <div class="tab-pane fade pt-3" id="offer-management">
       <h5 class="card-title"><center><span> offer management</span></center></h5>
       <div class="row">
-        <form action="shortenurl" method="post">
+        <form action="{{ url_for('offermanagement') }}" method="post">
         <div class="col-md-3">
             <input type="text" class="form-control" id="trxid" placeholder="cp id / offer code">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <select class="form-select form-select-sm" aria-label="Small select example">
             <option selected>Open this select menu</option>
             <option value="1">cp id</option>

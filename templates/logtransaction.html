@@ -43,18 +43,26 @@
 
         <div class="d-flex align-items-center">
           <div class="ps-3">
-            {% if flag %}
+            {% if flag %} <!-- check flag -->
             <ul>
+              <span class="text-muted small pt-2 ps-1">
+              {% if total > 0 %} <!-- check data is None -->
               {% for d in data%}
-              <li><span class="text-muted small pt-2 ps-1"> {{ d }} </span></li>
+              <li>{{ d }} </li>
               {% endfor %}
             </ul>
-            <br><span class="text-muted small pt-2 ps-1">
+            <br>
               <center>====================================  END  ====================================</center>
-            </span>
-            {% else %}
+            
+            {% else %} <!-- check data is None -->
+            <ul>
+              <li>DATA NOT FOUND !!! </li>
+            </ul>
+            {% endif %} <!-- check data is None -->
+            {% else %} <!-- check flag -->
             <h5 class="card-title">no result</h5>
-            {% endif %}
+            {% endif %} <!-- check flag -->
+           </span>
           </div>
         </div>
 
