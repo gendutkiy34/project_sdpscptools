@@ -1262,6 +1262,12 @@ button {
   background-color: #19f1df
 }
 
+
+.collapse1 {
+  overflow-y:scroll;
+  overflow-x:auto;
+  max-height:500px;
+}
 /*
 #form{
      color: white;

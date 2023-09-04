@@ -1,0 +1,145 @@
+{% extends "baseconfig.html" %}
+{% block baseconfig %}
+<ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('sdpconfig')  }}" data-bs-toggle="tab" d data-bs-target="#sdc-list">SDC List</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('sdpconfig')  }}" data-bs-toggle="tab" d data-bs-target="#cp-config">CP Configuration</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('sdpconfig')  }}" data-bs-toggle="tab" d data-bs-target="#sub-keyword">Keyword</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('sdpconfig')  }}" data-bs-toggle="tab" d data-bs-target="#offer-management">Offer Management</a>
+    </li>
+  </ul>
+  <div class="tab-content pt-2">
+    <div class="tab-pane fade pt-3" id="sdc-list">
+      <form action="{{ url_for('sdclist') }}" method="post">
+      <h5 class="card-title"><center><span> sdc list</span></center></h5>
+      <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="cpsdc" placeholder="cp id / shortcode" required>
+        </div>
+        <div class="col-md-2">
+          <select class="form-select form-select-sm" name="conditiontype" aria-label="Small select example" >
+            <option selected>choose one</option>
+            <option value="cp" >cp id</option>
+            <option value="sdc" >shortcode</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary mb-3">Check</button>
+        </div>
+      </div>
+      </form>
+    </div>
+    <div class="tab-pane fade show active cp-config"" id="cp-config">
+      <h5 class="card-title"><center><span> CP Configuration</span></center></h5>
+      <div class="row">
+        <form action="{{ url_for('cpconfig') }}" method="post">
+        <div class="col-md-2">
+          <input type="text" class="form-control" name="cpid" placeholder="cp id" required>
+        </div>
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-primary mb-3">Check</button>
+        </div>
+      </form>
+      </div>
+    </div>
+    <div class="tab-pane fade pt-3" id="sub-keyword">
+      <h5 class="card-title"><center><span>sub keyword</span></center></h5>
+      <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="trxid" placeholder="offercode / keyword">
+        </div>
+        <div class="col-md-2">
+          <select class="form-select form-select-sm" aria-label="Small select example">
+            <option selected>Open this select menu</option>
+            <option value="1">offercode</option>
+            <option value="2">keyword</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary mb-3">Check</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade pt-3" id="offer-management">
+      <h5 class="card-title"><center><span> offer management</span></center></h5>
+      <div class="row">
+        <form action="{{ url_for('offermanagement') }}" method="post">
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="trxid" placeholder="cp id / offer code">
+        </div>
+        <div class="col-md-3">
+          <select class="form-select form-select-sm" aria-label="Small select example">
+            <option selected>Open this select menu</option>
+            <option value="1">cp id</option>
+            <option value="2">offer</option>
+          </select>
+        </div>
+       </form>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary mb-3">Check</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block card %}
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      {% if flag %}
+       <h5 class="card-title">CP {{ cpname }}</h5>
+       <div class="collapse1">
+         <table class="table table-sm" >
+          <thead>
+            <tr>
+              <th scope="col">CP_NAME</th>
+              <th scope="col">CP_ID</th>
+              <th scope="col">CONNECTION_NAME</th>
+              <th scope="col">SUBSCRIPTION_TYPE</th>
+              <th scope="col">CONNECTION_TYPE</th>
+              <th scope="col">SYSTEM_ID</th>
+              <th scope="col">PASSWORD</th>
+              <th scope="col">CONCURRENT</th>
+              <th scope="col">TPS</th>
+              <th scope="col">STATUS</th>
+              <th scope="col">MO_URL_1</th>
+              <th scope="col">MO_URL_2</th>
+              <th scope="col">DR_URL1</th>
+              <th scope="col">DR_URL2</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for d in dataraw %}
+            <tr>
+              <td>{{ d[0] }}</td>
+              <td>{{ d[1] }}</td>
+              <td>{{ d[2] }}</td>
+              <td>{{ d[3] }}</td>
+              <td>{{ d[4] }}</td>
+              <td>{{ d[5] }}</td>
+              <td>{{ d[6] }}</td>
+              <td>{{ d[7] }}</td>
+              <td>{{ d[8] }}</td>
+              <td>{{ d[13] }}</td>
+              <td>{{ d[9] }}</td>
+              <td>{{ d[10] }}</td>
+              <td>{{ d[11] }}</td>
+              <td>{{ d[12] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+         </table>
+        </div>
+      {% else %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

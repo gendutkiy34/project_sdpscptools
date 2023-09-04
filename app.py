@@ -18,6 +18,8 @@ list_hour=['00','01','02','03','04','05','06','08','09','10','11',
                '12','14','15','16','17','18','19','20','21','22',
                '23']
 
+
+
 @app.route('/')
 def index():
     return render_template('home.html')
@@ -154,9 +156,25 @@ def offermanagement():
     return render_template('baseconfigsdp.html')
 
 
-@app.route('/cpconfig')
+@app.route('/cpconfig', methods=['GET',  'POST'])
 def cpconfig():
-    return render_template('cpconfig.html')
+    print('service cp config ')
+    cpid=''
+    flag=False
+    pathfile="./connections/sdpprodconfig.json"
+    if request.method == 'POST' :
+        flag=True
+        cp_id=request.form['cpid']
+        cond="WHERE CP_ID='{0}'".format(cp_id)
+        sqltext=ReadTxtFile(pathfile="./sql/cpconfig.sql")
+        print('data received, cp id : '.format(cp_id))
+        data=ReadConfig(conpath=pathfile,condition=cond,sqlraw=sqltext)
+        try :
+            cpname=data[0][0]
+        except Exception :
+            cpname='not found'
+        print('total data : '.format(len(data)))
+    return render_template('cpconfig.html',cpid=cp_id,dataraw=data,cpname=cpname,flag=flag)
 
 
 @app.route('/sdc')

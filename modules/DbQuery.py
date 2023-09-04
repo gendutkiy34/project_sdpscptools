@@ -4,6 +4,7 @@ import json
 
 
 def ReadConfig(conpath=None,condition=None,sqlraw=None):
+    list_data=[]
     try :
         conn=OracleCon(conpath)
         cur=conn.cursor()
@@ -13,11 +14,11 @@ def ReadConfig(conpath=None,condition=None,sqlraw=None):
         else :
             sql='{0}'.format(sqlraw)
             data_raw=cur.execute(sql.format(condition=condition))
+        for d in data_raw:
+            list_data.append(d)
     except Exception :
-        data_raw=['data not found']
-    sql="{0}".format(sqlraw)
-    data_raw=cur.execute(sql.format(condition=condition))
-    return data_raw
+        list_data=['data not found']
+    return list_data
 
 
 def ReadTrx(conpath=None,tgl=None,msisdn=None,hour=None,logtype=None,sqlraw=None):
