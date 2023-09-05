@@ -35,7 +35,7 @@
       </div>
       </form>
     </div>
-    <div class="tab-pane fade show active cp-config" id="cp-config">
+    <div class="tab-pane fade pt-3" id="cp-config">
       <h5 class="card-title"><center><span> CP Configuration</span></center></h5>
       <div class="row">
         <form action="{{ url_for('cpconfig') }}" method="post">
@@ -48,7 +48,7 @@
       </form>
       </div>
     </div>
-    <div class="tab-pane fade pt-3" id="sub-keyword">
+    <div class="tab-pane fade show active sub-keyword" id="sub-keyword">
       <h5 class="card-title"><center><span>sub keyword</span></center></h5>
       <div class="row">
         <div class="col-md-3">
@@ -97,10 +97,9 @@
        <h5 class="card-title">CP {{ cpname }}</h5>
        <div class="collapse1">
         <span class ="text-muted small pt-2 ps-1">
-         <table class="table table-sm" style="position: relative; height: 300px"  data-mdb-perfect-scrollbar="true">
+         <table class="table table-sm" >
           <thead>
             <tr>
-              <center>
               <th scope="col">CP_NAME</th>
               <th scope="col">CP_ID</th>
               <th scope="col">CONNECTION_NAME</th>
@@ -115,7 +114,6 @@
               <th scope="col">MO_URL_2</th>
               <th scope="col">DR_URL1</th>
               <th scope="col">DR_URL2</th>
-            </center>
             </tr>
           </thead>
           <tbody>
