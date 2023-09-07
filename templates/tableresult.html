@@ -1,0 +1,56 @@
+{% extends "baseconfigsdp.html" %}
+{% block tableresult %}
+    
+ {{ super.super() }}
+    {% if flag %}
+         <h5 class="card-title">CP {{ cpname }}</h5>
+         <div class="collapse1">
+          <span class ="text-muted small pt-2 ps-1">
+           <table class="table table-sm" style="position: relative; height: 300px"  data-mdb-perfect-scrollbar="true">
+            <thead>
+              <tr>
+                <center>
+                <th scope="col">CP_NAME</th>
+                <th scope="col">CP_ID</th>
+                <th scope="col">CONNECTION_NAME</th>
+                <th scope="col">SUBSCRIPTION_TYPE</th>
+                <th scope="col">CONNECTION_TYPE</th>
+                <th scope="col">SYSTEM_ID</th>
+                <th scope="col">PASSWORD</th>
+                <th scope="col">CONCURRENT</th>
+                <th scope="col">TPS</th>
+                <th scope="col">STATUS</th>
+                <th scope="col">MO_URL_1</th>
+                <th scope="col">MO_URL_2</th>
+                <th scope="col">DR_URL1</th>
+                <th scope="col">DR_URL2</th>
+              </center>
+              </tr>
+            </thead>
+            <tbody>
+              {% for d in dataraw %}
+              <tr>
+                <td>{{ d[0] }}</td>
+                <td>{{ d[1] }}</td>
+                <td>{{ d[2] }}</td>
+                <td>{{ d[3] }}</td>
+                <td>{{ d[4] }}</td>
+                <td>{{ d[5] }}</td>
+                <td>{{ d[6] }}</td>
+                <td>{{ d[7] }}</td>
+                <td>{{ d[8] }}</td>
+                <td>{{ d[13] }}</td>
+                <td>{{ d[9] }}</td>
+                <td>{{ d[10] }}</td>
+                <td>{{ d[11] }}</td>
+                <td>{{ d[12] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+           </table>
+          </span>
+          </div>
+        {% else %}
+        {% endif %}
+
+{% endblock %}
