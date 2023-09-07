@@ -1268,7 +1268,14 @@ button {
   overflow-x:auto;
   max-height:500px;
 }
+.table-scroll table thead th {
+  font-size: 1.25rem;
+}
 
+.table-scroll {
+  border-radius: .5rem;
+}
+/*
 table td,
 table th {
   text-overflow: ellipsis;
@@ -1287,7 +1294,7 @@ thead th {
 .table-scroll table thead th {
   font-size: 1.25rem;
 }
-/*
+
 #form{
      color: white;
      background-color: #009EDF;

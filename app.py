@@ -176,6 +176,9 @@ def cpconfig():
         print('total data : '.format(len(data)))
     return render_template('cpconfig.html',cpid=cp_id,dataraw=data,cpname=cpname,flag=flag)
 
+@app.route('/subkeyword')
+def subkeyword():
+    return render_template('baseconfigsdp.html')
 
 @app.route('/sdc')
 def sdclist():

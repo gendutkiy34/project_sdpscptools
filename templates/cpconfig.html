@@ -14,17 +14,21 @@
         <a class="nav-link" href="{{ url_for('sdpconfig')  }}" data-bs-toggle="tab" d data-bs-target="#offer-management">Offer Management</a>
     </li>
   </ul>
+
+  <!--SECTION TAB-->
   <div class="tab-content pt-2">
+
+     <!--TAB SDC LIST-->
     <div class="tab-pane fade pt-3" id="sdc-list">
       <form action="{{ url_for('sdclist') }}" method="post">
-      <h5 class="card-title"><center><span> sdc list</span></center></h5>
+      <h5 class="card-title"><center>sdc list</center></h5>
       <div class="row">
         <div class="col-md-3">
             <input type="text" class="form-control" name="cpsdc" placeholder="cp id / shortcode" required>
         </div>
         <div class="col-md-2">
-          <select class="form-select form-select-sm" name="conditiontype" aria-label="Small select example" >
-            <option selected>choose one</option>
+          <select class="form-select form-select-sm" name="conditiontype" aria-label="Small select example" required>
+            <option selected></option>
             <option value="cp" >cp id</option>
             <option value="sdc" >shortcode</option>
           </select>
@@ -35,10 +39,12 @@
       </div>
       </form>
     </div>
-    <div class="tab-pane fade show active cp-config" id="cp-config">
-      <h5 class="card-title"><center><span> CP Configuration</span></center></h5>
+
+    <!--TAB CP CONFIG-->
+    <div class="tab-pane fade pt-3" id="cp-config">
+      <form action="{{ url_for('cpconfig') }}" method="post">
+      <h5 class="card-title"><center> CP Configuration</center></h5>
       <div class="row">
-        <form action="{{ url_for('cpconfig') }}" method="post">
         <div class="col-md-2">
           <input type="text" class="form-control" name="cpid" placeholder="cp id" required>
         </div>
@@ -48,44 +54,51 @@
       </form>
       </div>
     </div>
+
+    <!--TAB SUBKEYWORD-->
     <div class="tab-pane fade pt-3" id="sub-keyword">
-      <h5 class="card-title"><center><span>sub keyword</span></center></h5>
-      <div class="row">
-        <div class="col-md-3">
-            <input type="text" class="form-control" id="trxid" placeholder="offercode / keyword">
-        </div>
-        <div class="col-md-2">
-          <select class="form-select form-select-sm" aria-label="Small select example">
-            <option selected>Open this select menu</option>
-            <option value="1">offercode</option>
-            <option value="2">keyword</option>
-          </select>
-        </div>
-        <div class="col-md-2">
+      <form action="{{ url_for('subkeyword') }}" method="post">
+        <h5 class="card-title"><center>sub keyword</center></h5>
+        <div class="row">
+          <div class="col-md-3">
+              <input type="text" class="form-control" id="trxid" placeholder="offercode / keyword" required>
+          </div>
+          <div class="col-md-2">
+            <select class="form-select form-select-sm" aria-label="Small select example" required >
+              <option selected></option>
+              <option value="offercode">offercode</option>
+              <option value="keyword">keyword</option>
+            </select>
+          </div>
+          <div class="col-md-2">
             <button type="submit" class="btn btn-primary mb-3">Check</button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
+
+    <!--TAB OFFER MANAGEMENT-->
     <div class="tab-pane fade pt-3" id="offer-management">
-      <h5 class="card-title"><center><span> offer management</span></center></h5>
-      <div class="row">
-        <form action="{{ url_for('offermanagement') }}" method="post">
-        <div class="col-md-3">
-            <input type="text" class="form-control" id="trxid" placeholder="cp id / offer code">
-        </div>
-        <div class="col-md-3">
-          <select class="form-select form-select-sm" aria-label="Small select example">
-            <option selected>Open this select menu</option>
-            <option value="1">cp id</option>
-            <option value="2">offer</option>
-          </select>
-        </div>
-       </form>
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-primary mb-3">Check</button>
-        </div>
-      </div>
+      <form action="{{ url_for('offermanagement') }}" method="post">
+        <h5 class="card-title"><center>offer management</center></h5>
+          <div class="row">
+            <div class="col-md-3">
+              <input type="text" class="form-control" id="trxid" placeholder="cp id / offer code" required>
+            </div>
+            <div class="col-md-2">
+              <select class="form-select form-select-sm" aria-label="Small select example" required>
+                <option selected></option>
+                <option value="1">cp id</option>
+                <option value="2">offer</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary mb-3">Check</button>
+            </div>
+          </div>
+      </form>
     </div>
+  
   </div>
 {% endblock %}
 
@@ -94,10 +107,11 @@
   <div class="col-lg-12">
     <div class="card">
       {% if flag %}
-       <h5 class="card-title">CP {{ cpname }}</h5>
+       <h5 class="card-title">CP CONFIGURATION : CP {{ cpname }}</h5>
        <div class="collapse1">
         <span class ="text-muted small pt-2 ps-1">
-         <table class="table table-sm" style="position: relative; height: 300px"  data-mdb-perfect-scrollbar="true">
+         <table class="table table-sm" style="height: 300px"  data-mdb-perfect-scrollbar="true">
+          <span>
           <thead>
             <tr>
               <center>
@@ -138,10 +152,38 @@
             </tr>
             {% endfor %}
           </tbody>
+         </span>
          </table>
         </span>
         </div>
       {% else %}
+      <table class="table table-sm" style="height: 300px"  data-mdb-perfect-scrollbar="true">
+        <thead>
+          <tr>
+            <center>
+            <th scope="col">CP_NAME</th>
+            <th scope="col">CP_ID</th>
+            <th scope="col">CONNECTION_NAME</th>
+            <th scope="col">SUBSCRIPTION_TYPE</th>
+            <th scope="col">CONNECTION_TYPE</th>
+            <th scope="col">SYSTEM_ID</th>
+            <th scope="col">PASSWORD</th>
+            <th scope="col">CONCURRENT</th>
+            <th scope="col">TPS</th>
+            <th scope="col">STATUS</th>
+            <th scope="col">MO_URL_1</th>
+            <th scope="col">MO_URL_2</th>
+            <th scope="col">DR_URL1</th>
+            <th scope="col">DR_URL2</th>
+          </center>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DATA NOT FOUND !!!</td>
+          </tr>
+        </tbody>
+      </table>
       {% endif %}
     </div>
   </div>
