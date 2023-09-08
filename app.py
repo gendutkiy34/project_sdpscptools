@@ -22,7 +22,7 @@ list_hour=['00','01','02','03','04','05','06','08','09','10','11',
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('homenew.html')
 
 
 @app.route('/scdconfig')
