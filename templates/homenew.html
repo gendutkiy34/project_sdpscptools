@@ -17,13 +17,17 @@
                 <i class="bi bi-messenger"></i>
               </div>
               <div class="ps-3">
-                <h6>145</h6>
-                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> 
+                <h6>{{ voiceattempt }}</h6>
+                {% if voicesr >= 99 %}
+                 <span class="text-success small pt-1 fw-bold">{{ voicesr }}%</span> 
+                {% else %}
+                <span class="text-danger small pt-1 fw-bold">{{ voicesr }}%</span> 
+                {% endif %} <span class="text-muted small pt-2 ps-1">succes rate</span> 
               </div>
             </div>
         </div>
       </div>
-    </div><!-- End Sales Card -->
+    </div><!-- End VOICE Card -->
     
     <!-- BULK MO Card -->
     <div class="col-xxl-4 col-md-4">
@@ -35,15 +39,20 @@
                 <i class="bi bi-bar-chart-line-fill"></i>
               </div>
               <div class="ps-3">
-                <h6>145</h6>
-                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> 
+                <h6>{{ bulkmoattempt }}</h6>
+                {% if bulkmosr >= 99 %}
+                 <span class="text-success small pt-1 fw-bold">{{ bulkmosr }}%</span> 
+                {% else %}
+                <span class="text-danger small pt-1 fw-bold">{{ bulkmosr }}%</span> 
+                {% endif %}  
+                <span class="text-muted small pt-2 ps-1">succes rate</span> 
               </div>
             </div>
         </div>
       </div>
-    </div><!-- End Sales Card -->
+    </div><!-- End BULK MO Card -->
 
-    <!-- Sales Card -->
+    <!-- BULK MT Card -->
     <div class="col-xxl-4 col-md-4">
       <div class="card info-card sales-card">
         <div class="card-body">
@@ -53,19 +62,23 @@
                 <i class="bi bi-bar-chart"></i>
               </div>
               <div class="ps-3">
-                <h6>145</h6>
-                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> 
+                <h6>{{ bulkmtattempt }}</h6>
+                {% if bulkmtsr >= 99 %}
+                 <span class="text-success small pt-1 fw-bold">{{ bulkmtsr }}%</span> 
+                {% else %}
+                <span class="text-danger small pt-1 fw-bold">{{ bulkmtsr }}%</span> 
+                {% endif %}  <span class="text-muted small pt-2 ps-1">succes rate</span> 
               </div>
             </div>
         </div>
       </div>
-    </div><!-- End Sales Card -->
+    </div><!-- End BULK MT Card -->
     
   </div>
 
   <div class="row">
 
-    <!-- VOICE Card -->
+    <!-- DIGITAL SERVICE Card -->
     <div class="col-xxl-4 col-md-4">
       <div class="card info-card sales-card">
         <div class="card-body">
@@ -75,15 +88,19 @@
                 <i class="bi bi-messenger"></i>
               </div>
               <div class="ps-3">
-                <h6>145</h6>
-                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> 
+                <h6>{{ digattempt }}</h6>
+                {% if digsr >= 99 %}
+                 <span class="text-success small pt-1 fw-bold">{{ digsr }}%</span> 
+                {% else %}
+                <span class="text-danger small pt-1 fw-bold">{{ digsr }}%</span> 
+                {% endif %} <span class="text-muted small pt-2 ps-1">succes rate</span> 
               </div>
             </div>
         </div>
       </div>
-    </div><!-- End Sales Card -->
+    </div><!-- End DIGITAL SERVICE Card -->
     
-    <!-- BULK Card -->
+    <!-- SUBSCRIPTION MO Card -->
     <div class="col-xxl-4 col-md-4">
       <div class="card info-card sales-card">
         <div class="card-body">
@@ -93,15 +110,19 @@
                 <i class="bi bi-bar-chart-line-fill"></i>
               </div>
               <div class="ps-3">
-                <h6>145</h6>
-                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> 
+                <h6>{{ submoattempt }}</h6>
+                {% if submosr >= 99 %}
+                 <span class="text-success small pt-1 fw-bold">{{ submosr }}%</span> 
+                {% else %}
+                <span class="text-danger small pt-1 fw-bold">{{ submosr }}%</span> 
+                {% endif %} <span class="text-muted small pt-2 ps-1">succes rate</span> 
               </div>
             </div>
         </div>
       </div>
-    </div><!-- End Sales Card -->
+    </div><!-- End SUBSCRIPTION MO Card -->
 
-    <!-- Sales Card -->
+    <!-- SUBSCRIPTION MT Card -->
     <div class="col-xxl-4 col-md-4">
       <div class="card info-card sales-card">
         <div class="card-body">
@@ -111,14 +132,96 @@
                 <i class="bi bi-bar-chart"></i>
               </div>
               <div class="ps-3">
-                <h6>145</h6>
-                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> 
+                <h6>{{ submtattempt }}</h6>
+                {% if submtsr >= 99 %}
+                 <span class="text-success small pt-1 fw-bold">{{ submtsr }}%</span> 
+                {% else %}
+                <span class="text-danger small pt-1 fw-bold">{{ submtsr }}%</span> 
+                {% endif %} <span class="text-muted small pt-2 ps-1">succes rate</span> 
               </div>
             </div>
         </div>
       </div>
-    </div><!-- End Sales Card -->
+    </div><!-- End SUBSCRIPTION MT Card -->
     
+    <!-- Reports -->
+    <div class="col-12">
+      <div class="card">
+
+        <div class="filter">
+          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <li class="dropdown-header text-start">
+              <h6>Filter</h6>
+            </li>
+
+            <li><a class="dropdown-item" href="#">Today</a></li>
+            <li><a class="dropdown-item" href="#">This Month</a></li>
+            <li><a class="dropdown-item" href="#">This Year</a></li>
+          </ul>
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title">Reports <span>/Today</span></h5>
+
+          <!-- Line Chart -->
+          <div id="reportsChart"></div>
+
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              new ApexCharts(document.querySelector("#reportsChart"), {
+                series: [{
+                  name: 'Sales',
+                  data: [31, 40, 28, 51, 42, 82, 56],
+                }, {
+                  name: 'Revenue',
+                  data: [11, 32, 45, 32, 34, 52, 41]
+                }, {
+                  name: 'Customers',
+                  data: [15, 11, 32, 18, 9, 24, 11]
+                }],
+                chart: {
+                  height: 350,
+                  type: 'area',
+                  toolbar: {
+                    show: false
+                  },
+                },
+                markers: {
+                  size: 4
+                },
+                colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                fill: {
+                  type: "gradient",
+                  gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: 0.3,
+                    opacityTo: 0.4,
+                    stops: [0, 90, 100]
+                  }
+                },
+                dataLabels: {
+                  enabled: false
+                },
+                stroke: {
+                  curve: 'smooth',
+                  width: 2
+                },
+                xaxis: {
+                  type: 'datetime',
+                  categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                }
+                }
+              }).render();
+            });
+          </script>
+          <!-- End Line Chart -->
+
+        </div>
+
+      </div>
+    </div><!-- End Reports -->
+
   </div>
 </section>
 {% endblock %}

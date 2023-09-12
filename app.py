@@ -1,13 +1,14 @@
 import os
 from flask import Flask,render_template,url_for,redirect,request
-from modules.general import ReadJsonFile,ReadTxtFile,ConvertListToDict
+from modules.general import ReadJsonFile,ReadTxtFile,ConvertListToDict,GetToday,ConvertDatetoStr,Sum2list
 from formapp import FormHttpReq,FormLog,FormCdr,FormCpId
 from modules.htttprequest import ReqHttp
 from modules.scplog import GetScpLog,ExtractScpLog
 from modules.sdplog import GetSdpLog
 from modules.ReadSdpLog import ExtractScmLog
-from modules.DbQuery import ReadConfig,ReadTrx
+from modules.DbQuery import ReadConfig,ReadTrx,GetDataToday,GetListSuccessRate
 from modules.extractcdr import ExtractCdrSdp
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'tO$&!|0wkamvVia0?n$NqIRVWOG'
@@ -22,8 +23,60 @@ list_hour=['00','01','02','03','04','05','06','08','09','10','11',
 
 @app.route('/')
 def index():
-    return render_template('homenew.html')
-
+    print('service : index')
+    list_bmosr=[]
+    list_bmtsr=[]
+    list_digsr=[]
+    list_smosr=[]
+    list_smtsr=[]
+    list_vsr=[]
+    list_vsucc=[]
+    list_vbsf=[]
+    today=GetToday()
+    dt_string=ConvertDatetoStr(today,'%Y-%m-%d')
+    dbscp=('./connections/scpprodtrx.json')
+    dbsdp=('./connections/sdpprodtrx.json')
+    sqlscp=ReadTxtFile('./sql/scphourlytoday.sql')
+    sqlsdp=ReadTxtFile('./sql/sdphourlytoday.sql')
+    data_scp=GetDataToday(conpath=dbscp,tgl=dt_string,cdrtype='scp',sqlraw=sqlscp)
+    print('data scp : {}'.format(len(data_scp)))
+    vattempt=sum(data_scp[1]) + sum(data_scp[2])
+    vsuccess=sum(data_scp[3]) + sum(data_scp[4])
+    vbsf=sum(data_scp[5])+sum(data_scp[6])
+    vsr=round(((vsuccess+vbsf) /vattempt )*100,2)
+    list_vsucc=Sum2list(list1=data_scp[3],list2=data_scp[4])
+    list_vbsf=Sum2list(list1=data_scp[5],list2=data_scp[6])
+    print('voice sr : {3}% , voice attempt : {0} , voice success = {1} , voice bussines fail = {2}'.format(vattempt,vsuccess,vbsf,vsr))
+    list_vsr=GetListSuccessRate(listattempt=data_scp[1],listsuccess=list_vsucc,listbsf=list_vbsf)
+    print('total data sr scp : {0}'.format(len(list_vsr)))
+    data_sdp=GetDataToday(conpath=dbsdp,tgl=dt_string,cdrtype='sdp',sqlraw=sqlsdp)
+    print('data sdp : {}'.format(len(data_sdp)))
+    bmoattempt=sum(data_sdp[1])
+    bmosr= round(((sum(data_sdp[6])+sum(data_sdp[9]) )/bmoattempt)*100,2)
+    bmtattempt=sum(data_sdp[2])
+    bmtsr= round(((sum(data_sdp[7])+sum(data_sdp[12]) )/bmtattempt)*100,2)
+    print('bulk_mo sr : {1}% , bulk_mo attempt : {0} , bulk_mt sr = {3} , bulk_mt attempt= {2}'.format(bmoattempt,bmosr,bmtattempt,bmtsr))
+    digattempt=sum(data_sdp[3])
+    digsr= round(((sum(data_sdp[8])+sum(data_sdp[13]) )/digattempt)*100,2)
+    print('digital_service sr : {1}% , bulk_mo attempt : {0}'.format(digattempt,digsr))
+    smoattempt=sum(data_sdp[14])
+    smosr= round(((sum(data_sdp[9])+sum(data_sdp[14]) )/smoattempt)*100,2)
+    smtattempt=sum(data_sdp[5])
+    smtsr= round(((sum(data_sdp[10])+sum(data_sdp[15]) )/smtattempt)*100,2)
+    print('subscription_mo sr : {1}% , subscription_mo attempt : {0} , subscription_mt sr = {1} , subscription_mt attempt= {2}'.format(smoattempt,smosr,smtattempt,smtsr))
+    list_bmosr=GetListSuccessRate(listattempt=data_sdp[1],listsuccess=data_sdp[6],listbsf=data_sdp[11])
+    list_bmtsr=GetListSuccessRate(listattempt=data_sdp[2],listsuccess=data_sdp[7],listbsf=data_sdp[12])
+    list_digsr=GetListSuccessRate(listattempt=data_sdp[3],listsuccess=data_sdp[8],listbsf=data_sdp[13])
+    list_smosr=GetListSuccessRate(listattempt=data_sdp[4],listsuccess=data_sdp[9],listbsf=data_sdp[14])
+    list_smtsr=GetListSuccessRate(listattempt=data_sdp[5],listsuccess=data_sdp[10],listbsf=data_sdp[15])
+    print('total data list_bmosr : {0} , total data list_bmtsr : {1} , total data list_digsr : {2} , total data list_smosr : {3} , total data list_smtsr : {4}'.format(len(list_bmosr),len(list_bmtsr),
+                                                                                                                                                                       len(list_digsr),len(list_smosr),
+                                                                                                                                                                       len(list_smtsr)))
+    return render_template('homenew.html',voiceattempt=vattempt,voicesr=vsr,bulkmoattempt=bmoattempt,bulkmosr=bmosr,
+                           bulkmtattempt=bmtattempt,bulkmtsr=bmtsr,digattempt=digattempt,digsr=digsr,
+                           submoattempt=smoattempt,submosr=smosr,submtattempt=smtattempt,submtsr=smtsr,listhour=list_hour,
+                           listvoice=list_vsr,listbmosr=list_bmosr,listbmtsr=list_bmtsr,listdigsr=list_digsr,listsmosr=list_bmosr,
+                           listsmtsr=list_smtsr)
 
 @app.route('/scdconfig')
 def sdpconfig():

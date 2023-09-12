@@ -6,13 +6,18 @@ from modules.htttprequest import ReqHttp
 from modules.scplog import GetScpLog,ExtractScpLog
 from modules.sdplog import GetSdpLog
 from modules.ReadSdpLog import ExtractScmLog
-from modules.DbQuery import ReadConfig,ReadTrx
-from modules.general import ConvertListToDict
+from modules.DbQuery import ReadConfig,ReadTrx,GetDataToday
+from modules.general import ConvertListToDict,GetToday,ConvertDatetoStr,Sum2list
 from modules.extractcdr import ExtractCdrSdp
 
-tempresult=GetScpLog(tgl='2023-08-31',trxid='542834968')
-result=ExtractScpLog(list_log=tempresult)
-for t in result:
-    print(t)
 
+today=GetToday()
+dt_string=ConvertDatetoStr(today,'%Y-%m-%d')
+dbscp=('./connections/scpprodtrx.json')
+dbsdp=('./connections/sdpprodtrx.json')
+sqlscp=ReadTxtFile('./sql/scphourlytoday.sql')
+sqlsdp=ReadTxtFile('./sql/sdphourlytoday.sql')
+data_sdp=GetDataToday(conpath=dbscp,tgl=dt_string,cdrtype='scp',sqlraw=sqlscp)
+list_x=Sum2list(list1=data_sdp[3],list2=data_sdp[4])
+print(list_x)
 

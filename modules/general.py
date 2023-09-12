@@ -43,3 +43,10 @@ def ConvertListToDict(listkey=None,listvalue=None):
             item[k.strip()]=val
         list_item.append(item)
     return list_item
+
+def Sum2list(list1=None,list2=None):
+    list_sum=[]
+    for a,b in zip(list1,list2):
+        c=a+b
+        list_sum.append(c)
+    return list_sum
