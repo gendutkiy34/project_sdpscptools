@@ -60,7 +60,7 @@ def GetDataToday(conpath=None,tgl=None,cdrtype=None,sqlraw=None):
         conn=OracleCon(conpath)
         cur=conn.cursor()
         sql=sqlraw
-        trxsql=sql.format(day=day,cdrtype=None,mon=mon)
+        trxsql=sql.format(day=day,mon=mon)
         tempdata=cur.execute(trxsql)
         if cdrtype == "scp" :
             list_nr_attempt=[]
@@ -80,42 +80,36 @@ def GetDataToday(conpath=None,tgl=None,cdrtype=None,sqlraw=None):
             list_data=[list_hour,list_nr_attempt,list_r_attempt,list_nr_success,
                        list_r_success,list_nr_bsf,list_r_bsf]
         elif cdrtype == "sdp" :
-            list_bmo_attempt=[]
-            list_bmt_attempt=[]
+            temp_list=[]
+            for d in tempdata:
+                temp_list.append(d)
+            list_xmo_attempt=[]
+            list_xmt_attempt=[]
             list_dig_attempt=[]
-            list_smo_attempt=[]
-            list_smt_attempt=[]
-            list_bmo_success=[]
-            list_bmt_success=[]
+            list_xmo_success=[]
+            list_xmt_success=[]
             list_dig_success=[]
-            list_smo_success=[]
-            list_smt_success=[]
-            list_bmo_bsf=[]
-            list_bmt_bsf=[]
+            list_xmo_bsf=[]
+            list_xmt_bsf=[]
             list_dig_bsf=[]
-            list_smo_bsf=[]
-            list_smt_bsf=[]
-            for data in tempdata:
-                list_hour.append(data[1])
-                list_bmo_attempt.append(data[2])
-                list_bmt_attempt.append(data[6])
-                list_dig_attempt.append(data[10])
-                list_smo_attempt.append(data[14])
-                list_smt_attempt.append(data[18])
-                list_bmo_success.append(data[3])
-                list_bmt_success.append(data[7])
-                list_dig_success.append(data[11])
-                list_smo_success.append(data[15])
-                list_smt_success.append(data[19])
-                list_bmo_bsf.append(data[4])
-                list_bmt_bsf.append(data[8])
-                list_dig_bsf.append(data[12])
-                list_smo_bsf.append(data[16])
-                list_smt_bsf.append(data[20])
-            list_data=[list_hour,list_bmo_attempt,list_bmt_attempt,list_dig_attempt,list_smo_attempt,
-                       list_smt_attempt,list_bmo_success,list_bmt_success,list_dig_success,
-                       list_smo_success,list_smt_success,list_bmo_bsf,list_bmt_bsf,list_dig_bsf,
-                       list_smo_bsf,list_smt_bsf]
+            if len(temp_list[0]) > 6 :
+                for data in temp_list:
+                    list_hour.append(data[1])
+                    list_xmo_attempt.append(data[2])
+                    list_xmt_attempt.append(data[6])
+                    list_xmo_success.append(data[3])
+                    list_xmt_success.append(data[7])
+                    list_xmo_bsf.append(data[4])
+                    list_xmt_bsf.append(data[8])
+                list_data=[list_hour,list_xmo_attempt,list_xmo_success,list_xmo_bsf,
+                           list_xmt_attempt,list_xmt_success,list_xmt_bsf]
+            else :
+                for data in temp_list:
+                    list_hour.append(data[1])
+                    list_dig_attempt.append(data[2])
+                    list_dig_success.append(data[3])
+                    list_dig_bsf.append(data[4])
+                list_data=[list_hour,list_dig_attempt,list_dig_success,list_dig_bsf]
     except Exception :
         pass
     return list_data

@@ -144,13 +144,11 @@
       </div>
     </div><!-- End SUBSCRIPTION MT Card -->
     
-    <!-- Reports -->
+    <!-- success rate hourly -->
     <div class="col-12">
       <div class="card">
-
         <!-- Line Chart -->
-        <div id="lineChart"></div>
-
+        <div id="lineChart">
         <script>
           document.addEventListener("DOMContentLoaded", () => {
             new ApexCharts(document.querySelector("#lineChart"), {
@@ -169,6 +167,14 @@
               {
                 name: "digital service",
                 data: {{ listdigsr |tojson }}
+              },
+              {
+                name: "Subscription MO",
+                data: {{ listsmosr |tojson }}
+              },
+              {
+                name: "Subscription MT",
+                data: {{ listsmtsr |tojson }}
               }],
               legend: {
                 show: true,
@@ -201,18 +207,37 @@
                   opacity: 0.5
                 },
               },
+              yaxis: {
+                      title: {
+                        text: 'Success Rate (%)'
+                      },
+                      max:100
+                    },
               xaxis: {
                 categories: {{ listhour |tojson }},
+                title: {
+                        text: 'hour'
+                      }
               }
             }).render();
           });
         </script>
         <!-- End Line Chart -->
-
+        </div>
       </div>
-
       </div>
     </div><!-- End Reports -->
+
+
+    <!-- success rate hourly -->
+    <div class="col-12">
+      <div class="card">
+        <!-- Line Chart -->
+        <div id="lineChart">
+        </div>
+      </div>
+    </div>
+
 
   </div>
 </section>
