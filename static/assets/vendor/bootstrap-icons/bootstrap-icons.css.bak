@@ -1979,4 +1979,3 @@ url("./fonts/bootstrap-icons.woff?1fa40e8900654d2863d011707b9fb6f2") format("wof
 .bi-sina-weibo::before { content: "\f8ca"; }
 .bi-tencent-qq::before { content: "\f8cb"; }
 .bi-wikipedia::before { content: "\f8cc"; }
-.bi-send-arrow-up-fill::before{ content:"\f8d2"; }

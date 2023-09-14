@@ -76,11 +76,8 @@
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
-
-      <!-- End Components Nav -->
-
-      <!-- End Forms Nav -->
-
+	  
+	  <!-- SDP CONFIG MENU -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#sdpconfig-prod" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>SDP_CONFIG</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -97,8 +94,9 @@
                 </a>
             </li>
         </ul>
-      </li><!-- End SDP_PROD_CONFIG -->
-
+      </li><!-- End SDP CONFIG -->
+	  
+	  <!-- SCP CONFIG MENU -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#scpconfig-prod" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>SCP_CONFIG</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -115,13 +113,14 @@
                 </a>
             </li>
         </ul>
-      </li><!-- End SCP_PROD_CONFIG -->
-
+      </li><!-- End SCP CONFIG -->
+	  
+	  <!-- CDR MENU -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#sdpconfig-sit" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>CDR</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" data-bs-target="#cdrsdpscp" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-activity"></i><span>CDR</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="sdpconfig-sit" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="cdrsdpscp" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ url_for('cdrresult')  }}">
               <i class="bi bi-circle"></i><span>PROD</span>
@@ -133,29 +132,44 @@
                 </a>
             </li>
         </ul>
-      </li><!-- End SDP_SIT_CONFIG -->
-
-      <!-- End Charts Nav -->
-
-      <!-- End Icons Nav -->
+      </li><!-- End CDR -->
+	  
+	  <!-- CHART MENU -->
+	  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charttool" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-pie-chart-fill"></i><span>CHART</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charttool" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('cdrresult')  }}">
+              <i class="bi bi-circle"></i><span>SCP</span>
+            </a>
+            </li>
+            <li>
+                <a href="{{ url_for('cdrresult')  }}">
+                  <i class="bi bi-circle"></i><span>SDP</span>
+                </a>
+            </li>
+        </ul>
+      </li><!-- End CHART -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ url_for('trxlog')  }}">
-          <i class="bi bi-layout-text-window-reverse"></i>
+          <i class="bi bi-card-text"></i>
           <span>CHECK LOG</span>
         </a>
       </li><!-- End CHECK LOG PAGE -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ url_for('MtSim')  }}">
-          <i class="bi bi-three-dots"></i>
+          <i class="bi bi-send-arrow-up-fill"></i>
           <span>PUSH_MT_SIMULATOR</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ url_for('index')  }}">
-          <i class="bi bi-three-dots"></i>
+          <i class="bi bi-terminal-fill"></i>
           <span>CONNECT NODE SERVER</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
