@@ -117,10 +117,10 @@
 	  
 	  <!-- CDR MENU -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#sdpconfig-sit" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>CDR</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" data-bs-target="#cdrsdpscp" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-activity"></i><span>CDR</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="sdpconfig-sit" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="cdrsdpscp" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ url_for('cdrresult')  }}">
               <i class="bi bi-circle"></i><span>PROD</span>
@@ -137,7 +137,7 @@
 	  <!-- CHART MENU -->
 	  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charttool" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>CHART</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-pie-chart-fill"></i><span>CHART</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="charttool" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
