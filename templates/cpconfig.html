@@ -83,13 +83,13 @@
         <h5 class="card-title"><center>offer management</center></h5>
           <div class="row">
             <div class="col-md-3">
-              <input type="text" class="form-control" id="trxid" placeholder="cp id / offer code" required>
+              <input type="text" class="form-control" name="cpoffer" placeholder="cp id / offer code" required>
             </div>
             <div class="col-md-2">
-              <select class="form-select form-select-sm" aria-label="Small select example" required>
+              <select class="form-select form-select-sm" name="filtertype" aria-label="Small select example" required>
                 <option selected></option>
-                <option value="1">cp id</option>
-                <option value="2">offer</option>
+                <option value="cp">cp id</option>
+                <option value="offer">offer</option>
               </select>
             </div>
             <div class="col-md-2">
@@ -110,9 +110,9 @@
        <h5 class="card-title">CP CONFIGURATION : CP {{ cpname }}</h5>
        <div class="collapse1">
         <span class ="text-muted small pt-2 ps-1">
-         <table class="table table-sm" style="height: 300px"  data-mdb-perfect-scrollbar="true">
+         <table class="table table-striped mb-0" style="height: 300px"  data-mdb-perfect-scrollbar="true">
           <span>
-          <thead>
+          <thead style="background-color: #002d72;">
             <tr>
               <center>
               <th scope="col">CP_NAME</th>
@@ -157,8 +157,8 @@
         </span>
         </div>
       {% else %}
-      <table class="table table-sm" style="height: 300px"  data-mdb-perfect-scrollbar="true">
-        <thead>
+      <table class="table table-striped mb-0" style="height: 300px"  data-mdb-perfect-scrollbar="true">
+        <thead style="background-color: #002d72;">
           <tr>
             <center>
             <th scope="col">CP_NAME</th>

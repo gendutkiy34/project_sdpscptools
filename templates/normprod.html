@@ -1,0 +1,90 @@
+{% extends "baseconfig.html" %}
+{% block baseconfig %}
+<ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('NormalizationProd')  }}">Normalization Rule</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('DenormalizationProd')  }}">Denormalization Rule</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('BftRuleProd')  }}">BFT Rule Master</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('OcsMapProd')  }}">OCS Mapping</a>
+    </li>
+  </ul>
+{% endblock %}
+
+{% block card %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            {% if "connection failed" not in dataraw  %}
+            <h5 class="card-title"><center>NORMALIZATION RULE  -  SCP PRODUCTION</center></h5>
+            <div class="collapse1">
+                <span class ="text-muted small pt-2 ps-1">
+                    <table class="table table-striped mb-0" style="height: 300px"  data-mdb-perfect-scrollbar="true">
+                        <thead style="background-color: #002d72;">
+                            <tr>
+                                <center>
+                                    <th scope="col">NUMBER PREFIX</th>
+                                    <th scope="col">RULE NAME</th>
+                                    <th scope="col">DELETE PREFIX</th>
+                                    <th scope="col">ADD PREFIX</th>
+                                    <th scope="col">IN NAI</th>
+                                    <th scope="col">OUT NAI</th>
+                                    <th scope="col">LENGHT</th>
+                                </center>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for d in dataraw %}
+                            <tr>
+                                <td>{{ d[1] }}</td>
+                                <td>{{ d[15] }}</td>
+                                <td>{{ d[6] }}</td>
+                                <td>{{ d[7] }}</td>
+                                <td>{{ d[16] }}</td>
+                                <td>{{ d[17] }}</td>
+                                <td>{{ d[2] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </span>
+            </div>
+            {% else %}
+            <div class="collapse1">
+                <span class ="text-muted small pt-2 ps-1">
+                    <table class="table table-sm" style="height: 300px"  data-mdb-perfect-scrollbar="true">
+                        <thead>
+                            <tr>
+                                <center>
+                                    <th scope="col">PROFILE NAME</th>
+                                    <th scope="col">IN PREFIX</th>
+                                    <th scope="col">MAX LENGHT</th>
+                                    <th scope="col">MIN LENGHT</th>
+                                    <th scope="col">OUTNOA</th>
+                                    <th scope="col">OUT PREFIX</th>
+                                    <th scope="col">TRIM DIGITS</th>
+                                </center>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for d in dataraw %}
+                            <tr>
+                                <td>DATA NOT FOUND !!!</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+        
+{% endblock %}

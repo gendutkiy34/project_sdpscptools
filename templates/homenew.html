@@ -23,6 +23,30 @@
                 {% else %}
                 <span class="text-danger small pt-1 fw-bold">{{ voicesr }}%</span> 
                 {% endif %} <span class="text-muted small pt-2 ps-1">succes rate</span> 
+				<br>
+				 <!-- Char Script -->
+				 <script>
+					document.addEventListener("DOMContentLoaded", () => {
+						new ApexCharts(document.querySelector("#donutChart"), {
+							series: [44, 55, 41, 17, 15],
+          chart: {
+          type: 'donut',
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+						}).render();
+					});
+				</script>
+				<!-- END Chart Script -->
               </div>
             </div>
         </div>
@@ -143,102 +167,37 @@
         </div>
       </div>
     </div><!-- End SUBSCRIPTION MT Card -->
-    
-    <!-- success rate hourly -->
-    <div class="col-12">
-      <div class="card">
-        <!-- Line Chart -->
-        <div id="lineChart">
-        <script>
-          document.addEventListener("DOMContentLoaded", () => {
-            new ApexCharts(document.querySelector("#lineChart"), {
-              series: [{
-                name: "voice",
-                data: {{ listvoice |tojson }}
-              },
-              {
-                name: "bulk mo",
-                data: {{ listbmosr |tojson }}
-              },
-              {
-                name: "bulk mt",
-                data: {{ listbmtsr |tojson }}
-              },
-              {
-                name: "digital service",
-                data: {{ listdigsr |tojson }}
-              },
-              {
-                name: "Subscription MO",
-                data: {{ listsmosr |tojson }}
-              },
-              {
-                name: "Subscription MT",
-                data: {{ listsmtsr |tojson }}
-              }],
-              legend: {
-                show: true,
-                position: 'bottom'
-              },
-              markers: {
-                size: 2,
-              },
-              title: {
-                text: "Success Rate Hourly",
-                align: 'center'
-              },
-              chart: {
-                height: 350,
-                type: 'line',
-                zoom: {
-                  enabled: false
-                }
-              },
-              dataLabels: {
-                enabled: false
-              },
-              stroke: {
-                width:3,
-                curve: 'smooth'
-              },
-              grid: {
-                row: {
-                  colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                  opacity: 0.5
-                },
-              },
-              yaxis: {
-                      title: {
-                        text: 'Success Rate (%)'
-                      },
-                      max:100
-                    },
-              xaxis: {
-                categories: {{ listhour |tojson }},
-                title: {
-                        text: 'hour'
-                      }
-              }
-            }).render();
-          });
-        </script>
-        <!-- End Line Chart -->
-        </div>
-      </div>
-      </div>
-    </div><!-- End Reports -->
-
-
-    <!-- success rate hourly -->
-    <div class="col-12">
-      <div class="card">
-        <!-- Line Chart -->
-        <div id="lineChart">
-        </div>
-      </div>
-    </div>
-
-
+  
   </div>
+
+<!-- stacked Chart -->  
+<div class="col-lg-4">
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">Stacked Chart</h5>
+			<div id="barChart"></div>
+			<br>SUCCESS : {{ listscr |tojson }}
+			<br>BUSSINESS FAILED :  {{ listbfr |tojson }}
+			<br>FAILED :  {{ listflr |tojson }}
+		</div>
+	</div>
+</div>
+
+<!-- line Chart -->  
+<div class="col-lg-12">
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">Line Chart</h5>
+			<div id="barChart"></div>
+			<br>voice : {{ listvoice |tojson }}
+			<br>bulk mo :  {{ listbmosr |tojson }}
+			<br>bulk mt :  {{ listbmtsr |tojson }}
+			<br>digital :  {{ listdigsr |tojson }}
+			<br>subs mo :  {{ listsmosr |tojson }}
+			<br>subs mt :  {{ listsmtsr |tojson }}
+		</div>
+	</div>
+</div>
+	
 </section>
 {% endblock %}

@@ -83,7 +83,7 @@
         <h5 class="card-title"><center>offer management</center></h5>
           <div class="row">
             <div class="col-md-3">
-              <input type="text" class="form-control" name="cpoffer"  placeholder="cp id / offer code" required>
+              <input type="text" class="form-control" name="cpoffer" placeholder="cp id / offer code" required>
             </div>
             <div class="col-md-2">
               <select class="form-select form-select-sm" name="filtertype" aria-label="Small select example" required>
@@ -104,11 +104,76 @@
 
 {% block card %}
 <div class="row">
-<div class="col-lg-12">
-  <div class="card">
-    <div class="card-body">
+  <div class="col-lg-12">
+    <div class="card">
+      {% if dataraw != '' %}
+       <h5 class="card-title">OFFER CODE MANAGEMENT : CP {{ cpname }}</h5>
+       <div class="collapse1">
+        <span class ="text-muted small pt-2 ps-1">
+         <table class="table table-striped mb-0" style="height: 300px"  data-mdb-perfect-scrollbar="true">
+          <span>
+          <thead style="background-color: #002d72;">
+            <tr>
+              <center>
+              <th scope="col">CP_NAME</th>
+              <th scope="col">OFFER CODE</th>
+              <th scope="col">OFFER NAME</th>
+              <th scope="col">SHORTCODE</th>
+              <th scope="col">MAX SPAN</th>
+              <th scope="col">SUBSCRIPTION MODE</th>
+              <th scope="col">COMMIT AT</th>
+              <th scope="col">SUB KEYWORD</th>
+              <th scope="col">SUBSCRIPTION FLOW</th>
+              <th scope="col">STATUS</th>
+            </center>
+            </tr>
+          </thead>
+          <tbody>
+            {% for d in dataraw %}
+            <tr>
+              <td>{{ d[0] }}</td>
+              <td>{{ d[1] }}</td>
+              <td>{{ d[2] }}</td>
+              <td>{{ d[5] }}</td>
+              <td>{{ d[8] }}</td>
+              <td>{{ d[10] }}</td>
+              <td>{{ d[7] }}</td>
+              <td>{{ d[13] }}</td>
+              <td>{{ d[6] }}</td>
+              <td>{{ d[14] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+         </span>
+         </table>
+        </span>
+        </div>
+      {% else %}
+      <table class="table table-striped mb-0" style="height: 300px"  data-mdb-perfect-scrollbar="true">
+        <thead style="background-color: #002d72;">
+          <tr>
+            <center>
+              <th scope="col">CP_NAME</th>
+              <th scope="col">OFFER CODE</th>
+              <th scope="col">OFFER NAME</th>
+              <th scope="col">SHORTCODE</th>
+              <th scope="col">MAX SPAN</th>
+              <th scope="col">SUBSCRIPTION MODE</th>
+              <th scope="col">COMMIT AT</th>
+              <th scope="col">SUB KEYWORD</th>
+              <th scope="col">SUBSCRIPTION FLOW</th>
+              <th scope="col">STATUS</th>
+          </center>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DATA NOT FOUND !!!</td>
+          </tr>
+        </tbody>
+      </table>
+      {% endif %}
     </div>
   </div>
-</div>
 </div>
 {% endblock %}

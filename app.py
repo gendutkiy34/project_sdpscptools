@@ -32,6 +32,11 @@ def index():
     list_vsr=[]
     list_vsucc=[]
     list_vbsf=[]
+    flag_scp=""
+    flag_bulk=""
+    flag_dig=""
+    flag_subs=""
+    nflag=False
     today=GetToday()
     dt_string=ConvertDatetoStr(today,'%Y-%m-%d')
     dbscp=('./connections/scpprodtrx.json')
@@ -41,69 +46,116 @@ def index():
     sqldig=ReadTxtFile('./sql/digitalservicetoday.sql')
     sqlsubs=ReadTxtFile('./sql/subscriptionservicetoday.sql')
     data_scp=GetDataToday(conpath=dbscp,tgl=dt_string,cdrtype='scp',sqlraw=sqlscp)
-    print('data scp : {}'.format(len(data_scp)))
-    vattempt=sum(data_scp[1]) + sum(data_scp[2])
-    vsuccess=sum(data_scp[3]) + sum(data_scp[4])
-    vbsf=sum(data_scp[5])+sum(data_scp[6])
-    vsr=round(((vsuccess+vbsf) /vattempt )*100,2)
-    list_vsucc=Sum2list(list1=data_scp[3],list2=data_scp[4])
-    list_vbsf=Sum2list(list1=data_scp[5],list2=data_scp[6])
-    print('voice sr : {3}% , voice attempt : {0} , voice success = {1} , voice bussines fail = {2}'.format(vattempt,vsuccess,vbsf,vsr))
-    list_vsr=GetListSuccessRate(listattempt=data_scp[1],listsuccess=list_vsucc,listbsf=list_vbsf)
-    print('total data sr scp : {0}'.format(len(list_vsr)))
+    if isinstance(data_scp,list) :
+        flag_scp=1
+        print('data scp : {}'.format(len(data_scp)))
+        vattempt=sum(data_scp[1]) + sum(data_scp[2])
+        vsuccess=sum(data_scp[3]) + sum(data_scp[4])
+        vbsf=sum(data_scp[5])+sum(data_scp[6])
+        vsr=round(((vsuccess+vbsf) /vattempt )*100,2)
+        list_vsucc=Sum2list(list1=data_scp[3],list2=data_scp[4])
+        list_vbsf=Sum2list(list1=data_scp[5],list2=data_scp[6])
+        print('voice sr : {3}% , voice attempt : {0} , voice success = {1} , voice bussines fail = {2}'.format(vattempt,vsuccess,vbsf,vsr))
+        list_vsr=GetListSuccessRate(listattempt=data_scp[1],listsuccess=list_vsucc,listbsf=list_vbsf)
+        print('total data sr scp : {0}'.format(len(list_vsr)))
+    else :
+        flag_scp=0
     data_bulk=GetDataToday(conpath=dbsdp,tgl=dt_string,cdrtype='sdp',sqlraw=sqlbulk)
-    print('data bulk : {}'.format(len(data_bulk)))
-    bmoattempt=sum(data_bulk[1])
-    bmosuccess=sum(data_bulk[2])
-    bmobsf=sum(data_bulk[3])
-    bmosr= round(((bmosuccess+bmobsf)/bmoattempt)*100,2)
-    print('bulk mo sr : {0}% , bulk mo attempt : {1} , bulk mo success = {2} , bulk mo bussines fail = {3}'.format(bmosr,bmoattempt,bmosuccess,bmobsf))
-    bmtattempt=sum(data_bulk[4])
-    bmtsuccess=sum(data_bulk[5])
-    bmtbsf=sum(data_bulk[6])
-    bmtsr= round(((bmtsuccess+bmtbsf)/bmtattempt)*100,2)
-    print('bulk mt sr : {0}% , bulk mt attempt : {1} , bulk mt success = {2} , bulk mt bussines fail = {3}'.format(bmtsr,bmtattempt,bmtsuccess,bmtbsf))
+    if isinstance(data_bulk,list):
+        flag_bulk=1
+        print('data bulk : {}'.format(len(data_bulk)))
+        bmoattempt=sum(data_bulk[1])
+        bmosuccess=sum(data_bulk[2])
+        bmobsf=sum(data_bulk[3])
+        bmosr= round(((bmosuccess+bmobsf)/bmoattempt)*100,2)
+        print('bulk mo sr : {0}% , bulk mo attempt : {1} , bulk mo success = {2} , bulk mo bussines fail = {3}'.format(bmosr,bmoattempt,bmosuccess,bmobsf))
+        list_bmosr=GetListSuccessRate(listattempt=data_bulk[1],listsuccess=data_bulk[2],listbsf=data_bulk[3])
+        print('list bulk mo sr hourly : {}'.format(list_bmosr))
+        bmtattempt=sum(data_bulk[4])
+        bmtsuccess=sum(data_bulk[5])
+        bmtbsf=sum(data_bulk[6])
+        bmtsr= round(((bmtsuccess+bmtbsf)/bmtattempt)*100,2)
+        print('bulk mt sr : {0}% , bulk mt attempt : {1} , bulk mt success = {2} , bulk mt bussines fail = {3}'.format(bmtsr,bmtattempt,bmtsuccess,bmtbsf))
+        listhour=data_bulk[0]
+        list_bmtsr=GetListSuccessRate(listattempt=data_bulk[1],listsuccess=data_bulk[2],listbsf=data_bulk[3])
+        print('list bulk mt sr hourly : {}'.format(list_bmtsr))
+    else :
+        flag_bulk=0
     data_dig=GetDataToday(conpath=dbsdp,tgl=dt_string,cdrtype='sdp',sqlraw=sqldig)
-    print('data digital service : {}'.format(len(data_dig)))
-    digattempt=sum(data_dig[1])
-    digsuccess=sum(data_dig[2])
-    digbsf=sum(data_dig[3])
-    digsr= round(((digsuccess+digbsf)/digattempt)*100,2)
-    print('digital sr : {0}% , digital attempt : {1} , digital success = {2} , digital bussines fail = {3}'.format(digsr,digattempt,digsuccess,digbsf))
+    if isinstance(data_dig,list) :
+        flag_dig=1
+        print('data digital service : {}'.format(len(data_dig)))
+        digattempt=sum(data_dig[1])
+        digsuccess=sum(data_dig[2])
+        digbsf=sum(data_dig[3])
+        digsr= round(((digsuccess+digbsf)/digattempt)*100,2)
+        print('digital sr : {0}% , digital attempt : {1} , digital success = {2} , digital bussines fail = {3}'.format(digsr,digattempt,digsuccess,digbsf))
+        list_digsr=GetListSuccessRate(listattempt=data_dig[1],listsuccess=data_dig[2],listbsf=data_dig[3])
+        print('list digital  sr hourly : {}'.format(list_digsr))
+    else :
+        flag_dig=0
     data_subs=GetDataToday(conpath=dbsdp,tgl=dt_string,cdrtype='sdp',sqlraw=sqlsubs)
-    print('data subscription : {}'.format(len(data_subs)))
-    smoattempt=sum(data_subs[1])
-    smosuccess=sum(data_subs[2])
-    smobsf=sum(data_subs[3])
-    smosr= round(((smosuccess+smobsf)/smoattempt)*100,2)
-    print('subs mo sr : {0}% , subs mo attempt : {1} , subs mo success = {2} , subs mo bussines fail = {3}'.format(smosr,smoattempt,smosuccess,smobsf))
-    smtattempt=sum(data_subs[4])
-    smtsuccess=sum(data_subs[5])
-    smtbsf=sum(data_subs[6])
-    smtsr= round(((smtsuccess+smtbsf)/smtattempt)*100,2)
-    print('subs mt sr : {0}% , subs mt attempt : {1} , subs mt success = {2} , subs mt bussines fail = {3}'.format(smtsr,smtattempt,smtsuccess,smtbsf))
-    listhour=data_bulk[0]
-    list_bmosr=GetListSuccessRate(listattempt=data_bulk[1],listsuccess=data_bulk[2],listbsf=data_bulk[3])
-    list_bmtsr=GetListSuccessRate(listattempt=data_bulk[4],listsuccess=data_bulk[5],listbsf=data_bulk[6])
-    list_digsr=GetListSuccessRate(listattempt=data_dig[1],listsuccess=data_dig[2],listbsf=data_dig[3])
-    list_smosr=GetListSuccessRate(listattempt=data_subs[1],listsuccess=data_subs[2],listbsf=data_subs[3])
-    list_smtsr=GetListSuccessRate(listattempt=data_subs[4],listsuccess=data_subs[5],listbsf=data_subs[6])
-    print('total data list_bmosr : {0} , total data list_bmtsr : {1} , total data list_digsr : {2} , total data list_smosr : {3} , total data list_smtsr : {4}'.format(len(list_bmosr),len(list_bmtsr),
-                                                                                                                                                                       len(list_digsr),len(list_smosr),
-                                                                                                                                                                       len(list_smtsr)))
-    return render_template('homenew.html',voiceattempt=vattempt,voicesr=vsr,bulkmoattempt=bmoattempt,bulkmosr=bmosr,
+    if isinstance(data_subs,list) :
+        flag_subs=1
+        print('data subscription : {}'.format(len(data_subs)))
+        smoattempt=sum(data_subs[1])
+        smosuccess=sum(data_subs[2])
+        smobsf=sum(data_subs[3])
+        smosr= round(((smosuccess+smobsf)/smoattempt)*100,2)
+        print('subs mo sr : {0}% , subs mo attempt : {1} , subs mo success = {2} , subs mo bussines fail = {3}'.format(smosr,smoattempt,smosuccess,smobsf))
+        list_smosr=GetListSuccessRate(listattempt=data_subs[1],listsuccess=data_subs[2],listbsf=data_subs[3])
+        print('list subscription mo  sr hourly : {}'.format(list_smosr))
+        smtattempt=sum(data_subs[4])
+        smtsuccess=sum(data_subs[5])
+        smtbsf=sum(data_subs[6])
+        smtsr= round(((smtsuccess+smtbsf)/smtattempt)*100,2)
+        print('subs mt sr : {0}% , subs mt attempt : {1} , subs mt success = {2} , subs mt bussines fail = {3}'.format(smtsr,smtattempt,smtsuccess,smtbsf))    
+        list_smtsr=GetListSuccessRate(listattempt=data_subs[4],listsuccess=data_subs[5],listbsf=data_subs[6])
+        print('list subscription mt  sr hourly : {}'.format(list_smtsr))
+    else :
+        flag_subs=0                                                                                                                                                                   
+    if flag_scp == 1 and flag_bulk ==1 and flag_dig ==1 and flag_subs == 1 :
+        vscr=round((vsuccess/vattempt)*100,2)  
+        vbfr=round((vbsf/vattempt)*100,2)  
+        vflr=round(((vattempt-(vsuccess+vbsf))/vattempt)*100,2) 
+        bulkmoscr=round((bmosuccess/bmoattempt)*100,2)  
+        bulkmobfr=round((bmobsf/bmoattempt)*100,2)  
+        bulkmoflr=round(((bmoattempt-(bmosuccess+bmobsf))/bmoattempt)*100,2)  
+        bulkmtscr=round((bmtsuccess/bmtattempt)*100,2)  
+        bulkmtbfr=round((bmtbsf/bmtattempt)*100,2)  
+        bulkmtflr=round(((bmtattempt-(bmtsuccess+bmtbsf))/bmtattempt)*100,2)   
+        digiscr=round((digsuccess/digattempt)*100,2)
+        digibfr=round((digbsf/digattempt)*100,2)
+        digiflr=round(((digattempt-(digsuccess+digbsf))/digattempt)*100,2)
+        subsmoscr=round((smosuccess/smoattempt)*100,2)
+        subsmobfr=round((smobsf/smoattempt)*100,2) 
+        subsmoflr=round(((smoattempt-(smosuccess+smobsf))/smoattempt)*100,2) 
+        subsmtscr=round((smtsuccess/smtattempt)*100,2)
+        subsmtbfr=round((smtbsf/smtattempt)*100,2) 
+        subsmtflr=round(((smtattempt-(smtsuccess+smtbsf))/smtattempt)*100,2) 
+        list_scr=[vscr,bulkmoscr,bulkmtscr,digiscr,subsmoscr,subsmtscr]
+        print('list success : {}'.format(list_scr))
+        list_bfr=[vbfr,bulkmobfr,bulkmtbfr,digibfr,subsmobfr,subsmtbfr]
+        print('list bussiness faile : {}'.format(list_bfr))
+        list_flr=[vflr,bulkmoflr,bulkmtflr,digiflr,subsmoflr,subsmtflr]
+        print('list failed : {}'.format(list_flr))
+        return render_template('homenew.html',voiceattempt=vattempt,voicesr=vsr,bulkmoattempt=bmoattempt,bulkmosr=bmosr,
                            bulkmtattempt=bmtattempt,bulkmtsr=bmtsr,digattempt=digattempt,digsr=digsr,
                            submoattempt=smoattempt,submosr=smosr,submtattempt=smtattempt,submtsr=smtsr,listhour=listhour,
                            listvoice=list_vsr,listbmosr=list_bmosr,listbmtsr=list_bmtsr,listdigsr=list_digsr,listsmosr=list_smosr,
-                           listsmtsr=list_smtsr)
+                           listsmtsr=list_smtsr,listscr=list_scr,listbfr=list_bfr,listflr=list_flr)
+    else :
+        print('flag 0 happens')
+        redirect (url_for('errorloading'))
+    
 
 @app.route('/scdconfig')
 def sdpconfig():
     return render_template('baseconfigsdp.html')
 
 @app.route('/scpconfig')
-def scpconfig():
-    return render_template('baseconfigscp.html')
+def scpconfigprod():
+    return render_template('baseconfigscpprod.html')
 
 
 @app.route('/transactionlog', methods=['GET', 'POST'])
@@ -225,7 +277,31 @@ def SdpConfig():
 
 @app.route('/offer', methods=['GET',  'POST'])
 def offermanagement():
-    return render_template('baseconfigsdp.html')
+    print('service : offer management ')
+    flag=False
+    cpoffer=""
+    filter=""
+    data_raw=""
+    conpath="./connections/sdpprodconfig.json"
+    sqltext=ReadTxtFile(pathfile="./sql/offercode.sql")
+    if request.method == 'POST' :
+        filter=request.form['filtertype']
+        cpoffer=request.form['cpoffer']
+        print('data received, filter={0} , cpoffer={1}'.format(filter,cpoffer))
+        if filter == "cp" :
+            condition="WHERE a.CP_ID='{}'".format(cpoffer)
+        else :
+            condition="WHERE a.OFFER_CODE='{}'".format(cpoffer)
+        print('filter : {}'.format(condition))
+        data_raw=ReadConfig(conpath=conpath,condition=condition,sqlraw=sqltext)
+        print('total data : {}'.format(len(data_raw)))
+        try :
+            cpname=data_raw[0][0]
+        except Exception :
+            cpname='not found'
+    if 'connection failed' not in data_raw or 'data not found' not in data_raw :
+        flag=True
+    return render_template('offermanagement.html',filter=filter,cpname=cpname,cpoffer=cpoffer,dataraw=data_raw)
 
 
 @app.route('/cpconfig', methods=['GET',  'POST'])
@@ -252,9 +328,82 @@ def cpconfig():
 def subkeyword():
     return render_template('baseconfigsdp.html')
 
-@app.route('/sdc')
+
+@app.route('/sdclist', methods=['GET',  'POST'])
 def sdclist():
-    return render_template('baseconfigsdp.html')
+    print('service : sdc list')
+    status=False
+    condition=''
+    filter=''
+    connection="./connections/sdpprodconfig.json"
+    sqltext=ReadTxtFile(pathfile="./sql/sdlist.sql")
+    if request.method == 'POST' :
+        status=True
+        filter=request.form['conditiontype']
+        cpsdc=request.form['cpsdc']
+        print('data received, conditiontype={0} , cpsdc={1}'.format(request.form['conditiontype'],cpsdc))
+        if str(request.form['conditiontype']) == 'cp' :
+            condition="WHERE a.CP_ID='{}'".format(cpsdc)
+        elif str(request.form['conditiontype']) == 'sdc' :
+            condition="WHERE a.MO_SHORT_CODE='{}'".format(cpsdc)
+        else :
+            pass
+        print('condition : {}'.format(condition))
+        data_raw=ReadConfig(conpath=connection,condition=condition,sqlraw=sqltext)
+        try :
+            cpname=data[0][0]
+        except Exception :
+            cpname='not found'
+        print("total data : {0}".format(len(data_raw)))
+    return render_template('sdclist.html',filter=filter,cpsdc=cpsdc,dataraw=data_raw)
+
+
+@app.route('/normprod')
+def NormalizationProd():
+    print('service : normalization prod')
+    dbcon=('./connections/scpprodconfig.json')
+    sqltxt="SELECT * FROM SCPUSER.NORMALIZATION_RULE_MASTER  ORDER BY RULE_ID"
+    data_raw=ReadConfig(conpath=dbcon,condition=None,sqlraw=sqltxt)
+    print("total data : {} ".format(data_raw))
+    return render_template('normprod.html',dataraw=data_raw)
+
+
+@app.route('/denormprod')
+def DenormalizationProd():
+    print('service : denormalization prod')
+    dbcon=('./connections/scpprodconfig.json')
+    sqltxt="SELECT * FROM SCPUSER.NUMBER_TRANSLATION_RULE ORDER BY RULE_ID"
+    data_raw=ReadConfig(conpath=dbcon,condition=None,sqlraw=sqltxt)
+    print("total data : {} ".format(data_raw))
+    return render_template('denormprod.html',dataraw=data_raw)
+
+
+@app.route('/bftmasterprod')
+def BftRuleProd():
+    print('service : BFT Rule Master prod')
+    dbcon=('./connections/scpprodconfig.json')
+    sqltxt=ReadTxtFile(pathfile="./sql/bftrulemasterprod.sql")
+    data_raw=ReadConfig(conpath=dbcon,condition=None,sqlraw=sqltxt)
+    print("total data : {} ".format(data_raw))
+    return render_template('bftruleprod.html',dataraw=data_raw)
+
+@app.route('/ocsmappingprod')
+def OcsMapProd():
+    print('service : OCS ERROR CODE Mapping prod')
+    dbcon=('./connections/scpprodconfig.json')
+    sqltxt="SELECT * FROM SCPUSER.OCS_ERRORCODE_MAPPING"
+    data_raw=ReadConfig(conpath=dbcon,condition=None,sqlraw=sqltxt)
+    print("total data : {} ".format(data_raw))
+    return render_template('ocsmapprod.html',dataraw=data_raw)
+    
+
+@app.route('/error')
+def errorloading():
+    return render_template('errorpage.html')
+
+@app.route('/test')
+def testpage():
+    return render_template('hometest.html')
 
 
 

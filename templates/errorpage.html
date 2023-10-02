@@ -1,0 +1,22 @@
+{% extends "baseapp.html" %}
+{% block content %}
+<section class="section dashboard">
+    <div class="row">
+        <div class="col-xxl-12 col-md-12">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <span class="text-muted large pt-7 ps-7">
+                    <center>
+                        <br><br><br>
+                        ERROR LOADING ...
+                        <br><br><br>
+                        <br><img src="{{ url_for('static',filename='assets/img/sadface.svg') }}" alt="">
+                        <br><br><br> Following Error : DB Connection failed | Data Not Found | SQL Syntax Error
+                    </center>
+                </span>
+              </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

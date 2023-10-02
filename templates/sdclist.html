@@ -83,7 +83,7 @@
         <h5 class="card-title"><center>offer management</center></h5>
           <div class="row">
             <div class="col-md-3">
-              <input type="text" class="form-control" name="cpoffer"  placeholder="cp id / offer code" required>
+              <input type="text" class="form-control" name="cpoffer" placeholder="cp id / offer code" required>
             </div>
             <div class="col-md-2">
               <select class="form-select form-select-sm" name="filtertype" aria-label="Small select example" required>
@@ -104,11 +104,77 @@
 
 {% block card %}
 <div class="row">
-<div class="col-lg-12">
-  <div class="card">
-    <div class="card-body">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><center>SDC List - {{ filter }} {{ cpsdc }}</center></h5>
+        {% if "connection failed" not in dataraw  %}
+        <div class="collapse1">
+          <span class ="text-muted small pt-2 ps-1">
+            <table class="table table-striped mb-0" style="height: 300px"  data-mdb-perfect-scrollbar="true">
+              <thead style="background-color: #002d72;">
+                <tr>
+                  <center>
+                    <th scope="col">CP NAME</th>
+                    <th scope="col">OFFER NAME</th>
+                    <th scope="col">CONNECTION NAME</th>
+                    <th scope="col">CONNECTION TYPE</th>
+                    <th scope="col">TYPE OF DIRECTION</th>
+                    <th scope="col">SENDER MASKING ADDRESS</th>
+                    <th scope="col">MO SHORTCODE</th>
+                    <th scope="col">MO KEYWORD</th>
+                    <th scope="col">PRICE</th>
+                  </center>
+                </tr>
+              </thead>
+              <tbody>
+                {% for d in dataraw %}
+                <tr>
+                  <td>{{ d[0] }}</td>
+                  <td>{{ d[1] }}</td>
+                  <td>{{ d[2] }}</td>
+                  <td>{{ d[3] }}</td>
+                  <td>{{ d[4] }}</td>
+                  <td>{{ d[5] }}</td> 
+                  <td>{{ d[6] }}</td>
+                  <td>{{ d[7] }}</td>
+                  <td>{{ d[9] }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </span>
+        </div>
+        {% else %}
+        <div class="collapse1">
+          <span class ="text-muted small pt-2 ps-1">
+            <table class="table table-striped mb-0" style="height: 300px"  data-mdb-perfect-scrollbar="true">
+              <thead style="background-color: #002d72;">
+                <tr>
+                  <center>
+                    <th scope="col">CP NAME</th>
+                    <th scope="col">OFFER NAME</th>
+                    <th scope="col">CONNECTION NAME</th>
+                    <th scope="col">CONNECTION TYPE</th>
+                    <th scope="col">TYPE OF DIRECTION</th>
+                    <th scope="col">SENDER MASKING ADDRESS</th>
+                    <th scope="col">MO SHORTCODE</th>
+                    <th scope="col">MO KEYWORD</th>
+                    <th scope="col">PRICE</th>
+                  </center>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DATA NOT FOUND !!!</td>
+              </tr>
+              </tbody>
+            </table>
+          </span>
+        </div>
+        {% endif %}
+      </div>
     </div>
   </div>
-</div>
 </div>
 {% endblock %}
